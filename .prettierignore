@@ -1,0 +1,10 @@
+.next
+.husky
+.config
+.vscode
+package-lock.json
+package.json
+/out
+/dist
+node_modules
+pnpm-lock.yaml
