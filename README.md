@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ShrinkURL
 
-## Getting Started
+ShrinkURL is a sleek, user-friendly URL shortener project designed to simplify link sharing and management. With its intuitive interface and robust backend, ShrinkURL allows users to generate concise, custom short links for long URLs effortlessly.
 
-First, run the development server:
+## Installation
+
+To install ShrinkURL, follow these steps:
+
+1. Clone this repository to your local machine.
+2. Open a terminal and navigate to the project folder.
+3. Run the following command to install dependencies using pnpm:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Once you have installed the dependencies, you can run the server using the following command:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+pnpm dev
+```
 
-## Learn More
+This will start the server on port 3000. You can now access ShrinkURL in your browser by visiting `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+## Tech
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ShrinkURL is built using the following technologies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Next.js**: A React framework for building server-side rendered and statically generated applications.
+- **TypeScript**: A statically typed superset of JavaScript that compiles to plain JavaScript.
+- **Tailwind CSS**: A utility-first CSS framework for creating custom designs quickly.
+- **Prettier**: An opinionated code formatter that ensures consistent code style.
+- **ESLint**: A pluggable and configurable JavaScript linter.
 
-## Deploy on Vercel
+## Husky and Commitlint Configuration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ShrinkURL utilizes Husky and Commitlint for ensuring consistent commit messages and running pre-commit hooks. To set up Husky and Commitlint, follow these steps:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Install Husky and Commitlint as dev dependencies:
+
+```bash
+pnpm install --save-dev husky @commitlint/{config-conventional,cli}
+```
+
+- `build`: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+- `chore`: Regular code maintenance.
+- `ci`: Changes to your CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+- `docs`: Documentation only changes
+- `feat`: A new feature
+- `fix`: A bug fix
+- `perf`: A code change that improves performance
+- `refactor`: A code change that neither fixes a bug nor adds a feature
+- `revert`: If the commit reverts a previous commit, it should begin with `revert:` , followed by the header of the reverted commit. In the body, it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
+- `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- `test`: Adding missing tests or correcting existing tests
+
+Remember, the goal of these conventions is to make your commit history easier to read and understand. Each commit should be a self-contained change to your codebase. By categorizing each commit, other developers (and you, in the future) can more easily understand the history of your project.
+
+Now, whenever you make a commit, Husky will ensure that your commit message conforms to the conventional commit format specified by Commitlint.
+
+## Credits
+
+Developed by [Alejandro Sandí](https://alejandrosandi.dev).
