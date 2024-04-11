@@ -1,4 +1,4 @@
-import '@/styles/globals';
+import '@/styles/globals.css';
 import { LayoutProps } from '@/types';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
