@@ -18,10 +18,9 @@ export type FormErrorState = {
   error?: ErrorState | null;
 };
 
-export type QueryResponse<T> = {
-  success: SuccessState<T> | null;
-  error: ErrorState;
-};
+export interface QueryResponse<T> extends FormErrorState {
+  success?: SuccessState<T> | null;
+}
 
 export interface MutationResponse extends FormErrorState {
   success?: {
