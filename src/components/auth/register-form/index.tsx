@@ -1,11 +1,12 @@
 'use client';
 
-import Input from '@/components/common/input';
+import SocialAuthentication from '@/components/auth/social-authentication';
+import { Input } from '@/components/common/input';
+import { Label } from '@/components/common/label';
+import SubmitButton from '@/components/common/submit-button';
 import { register } from '@/services/auth/register';
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
-import SocialAuthentication from '../social-authentication';
-import SubmitButton from '../submit-button';
 
 const FORM_INITIAL_STATE = {
   error: null,
@@ -19,39 +20,42 @@ export default function LoginForm() {
   return (
     <form action={dispatch} className='m-auto max-w-xs space-y-3 py-10'>
       <div className='mb-10'>
-        <h1 className='mb-px text-3xl font-bold'>Welcome to Sitename</h1>
+        <h1 className='mb-px text-3xl font-bold'>Welcome to Shrinkr</h1>
         <p className='text-primary-600 dark:text-gray-400'>
           Create an account to enjoy our benefits
         </p>
       </div>
       <div className='w-full'>
-        <Input
-          type='text'
-          caption='Name'
-          id='name'
-          name='name'
-          placeholder='Enter your name'
-          error={error}
-          required
-        />
-        <Input
-          type='email'
-          caption='Email'
-          id='email'
-          name='email'
-          placeholder='Enter your email'
-          error={error}
-          required
-        />
-        <Input
-          type='password'
-          caption='Password'
-          id='password'
-          name='password'
-          placeholder='Enter a secure password'
-          error={error}
-          required
-        />
+        <div className='mb-2.5 w-full space-y-2'>
+          <Label htmlFor='name'>Name</Label>
+          <Input
+            type='text'
+            id='name'
+            name='name'
+            placeholder='Enter your name'
+            required
+          />
+        </div>
+        <div className='mb-2.5 w-full space-y-2'>
+          <Label htmlFor='email'>Email</Label>
+          <Input
+            type='email'
+            id='email'
+            name='email'
+            placeholder='Enter your email'
+            required
+          />
+        </div>
+        <div className='mb-2.5 w-full space-y-2'>
+          <Label htmlFor='password'>Password</Label>
+          <Input
+            type='password'
+            id='password'
+            name='password'
+            placeholder='Enter a secure password'
+            required
+          />
+        </div>
       </div>
       <div className='mt-4'>
         <SubmitButton>Sign up</SubmitButton>

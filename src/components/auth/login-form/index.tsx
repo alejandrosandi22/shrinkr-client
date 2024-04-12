@@ -1,23 +1,23 @@
 'use client';
 
 import SocialAuthentication from '@/components/auth/social-authentication';
+import { Input } from '@/components/common/input';
+import { Label } from '@/components/common/label';
+import SubmitButton from '@/components/common/submit-button';
 import { authenticate } from '@/services/auth/authenticate';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import toast from 'react-hot-toast';
-import Input from '../../common/input';
-import SubmitButton from '../submit-button';
 
 const FORM_INITIAL_STATE = { error: null, success: null };
 
 export default function LoginForm() {
   const [formState, dispatch] = useFormState(authenticate, FORM_INITIAL_STATE);
-  const { error, success } = formState;
+  const { error } = formState;
 
   useEffect(() => {
     if (!error) return;
-    if (error.type) return;
     toast.error(error.message);
   }, [error]);
 
@@ -30,25 +30,27 @@ export default function LoginForm() {
         </p>
       </div>
       <div className='w-full'>
-        <Input
-          caption='Email'
-          id='email'
-          type='email'
-          name='email'
-          placeholder='Enter your email address'
-          error={error}
-          required
-        />
-        <Input
-          caption='Passord'
-          id='password'
-          type='password'
-          name='password'
-          placeholder='Enter password'
-          error={error}
-          required
-          minLength={6}
-        />
+        <div className='mb-5 w-full space-y-2'>
+          <Label htmlFor='email'>Email</Label>
+          <Input
+            id='email'
+            type='email'
+            name='email'
+            placeholder='Enter your email address'
+            required
+          />
+        </div>
+        <div className='mb-5 w-full space-y-2'>
+          <Label htmlFor='password'>Password</Label>
+          <Input
+            id='password'
+            type='password'
+            name='password'
+            placeholder='Enter password'
+            required
+            minLength={6}
+          />
+        </div>
         <div className='mt-3 flex items-center justify-between'>
           <div className='flex items-start'>
             <div className='flex h-5 items-center'>
