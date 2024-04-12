@@ -25,6 +25,6 @@ export interface QueryResponse<T> extends FormErrorState {
 export interface MutationResponse extends FormErrorState {
   success?: {
     message: string;
-    state: boolean;
+    data?: any;
   } | null;
 }
