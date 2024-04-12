@@ -1,16 +1,16 @@
 'use client';
 
-import { Button, buttonVariants } from '@/components/common/button';
+import { buttonVariants } from '@/components/common/button';
+import CreateURLForm from '@/components/common/navbar/create-url-form';
 import ThemeToggle from '@/components/common/navbar/theme-toggle';
 import UserDropdown from '@/components/common/navbar/user-dropdown';
 import { User } from '@/models/users';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Options({ data }: { data: User | null }) {
   const router = useRouter();
-  const [isOpen, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (data) return;
@@ -22,7 +22,7 @@ export default function Options({ data }: { data: User | null }) {
       <ThemeToggle />
       {data ? (
         <div className='flex items-center gap-5'>
-          <Button onClick={() => setOpen(true)}>New link</Button>
+          <CreateURLForm />
           <UserDropdown user={data} />
         </div>
       ) : (

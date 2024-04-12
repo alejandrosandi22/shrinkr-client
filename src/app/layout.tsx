@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<LayoutProps>) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning={true}>
       <body className={cn('bg-background', inter.className)}>
         <Providers>
           <Navbar />
