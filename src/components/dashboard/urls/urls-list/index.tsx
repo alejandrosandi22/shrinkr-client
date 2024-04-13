@@ -31,7 +31,7 @@ export default async function LinksList() {
   }
 
   return (
-    <Card className='relative z-10'>
+    <Card className='w-full overflow-auto'>
       <Table>
         <TableHeader>
           <TableRow>

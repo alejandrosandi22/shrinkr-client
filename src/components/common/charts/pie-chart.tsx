@@ -1,21 +1,29 @@
 'use client';
 
-import { Card } from '@/components/common/card';
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/common/card';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import {
   Pie,
   PieChart as PieChartComponent,
   ResponsiveContainer,
-  Tooltip,
 } from 'recharts';
 
-const renderCustomizedLabel = ({ cx, x, y, name }: any) => {
+const renderCustomizedLabel = ({ cx, x, y, name, resolvedTheme }: any) => {
   return (
     <text
       x={x}
       y={y}
-      fill='#9ca3af'
+      fill={
+        resolvedTheme === 'dark'
+          ? 'hsl(215 20.2% 65.1%)'
+          : 'hsl(215.4 16.3% 46.9%)'
+      }
       textAnchor={x > cx ? 'start' : 'end'}
       dominantBaseline='central'
     >
@@ -26,13 +34,14 @@ const renderCustomizedLabel = ({ cx, x, y, name }: any) => {
 
 interface PieChartProps {
   title: string;
+  description?: string;
   data?: {
     name: string;
     value: number;
   }[];
 }
 
-export default function PieChart({ title, data }: PieChartProps) {
+export default function PieChart({ title, description, data }: PieChartProps) {
   const [mounted, setMounted] = useState<boolean>(false);
   const { resolvedTheme } = useTheme();
 
@@ -42,21 +51,22 @@ export default function PieChart({ title, data }: PieChartProps) {
 
   if (!mounted || !data)
     return (
-      <Card className='flex h-96 w-full flex-col overflow-hidden border p-6'>
-        <div className='mb-5'>
-          <h2 className='text-2xl font-bold'>{title}</h2>
-        </div>
+      <Card className='flex h-96 w-full flex-col overflow-hidden border'>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+          {description && <CardDescription>{description}</CardDescription>}
+        </CardHeader>
       </Card>
     );
 
   return (
-    <Card className='flex h-96 w-full flex-col overflow-hidden border p-6'>
-      <div className='mb-5'>
-        <h2 className='text-2xl font-bold'>{title}</h2>
-      </div>
+    <Card className='flex h-96 w-full flex-col overflow-hidden border'>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
+      </CardHeader>
       <ResponsiveContainer width='100%' height='100%'>
         <PieChartComponent width={500} height={500}>
-          <Tooltip />
           <Pie
             data={data}
             dataKey='value'
