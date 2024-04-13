@@ -15,7 +15,7 @@ export default async function Dashboard() {
       </header>
       <div className='space-y-5'>
         <MainStats />
-        <section className='grid w-full grid-cols-1 gap-5 md:grid-cols-3'>
+        <section className='grid w-full grid-cols-1 gap-5 xl:grid-cols-3'>
           <TopReferrers />
           <TopPlatforms />
           <TopDevices />

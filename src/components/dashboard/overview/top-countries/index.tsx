@@ -34,7 +34,7 @@ export default async function TopCountries() {
   }
 
   return (
-    <Card>
+    <Card className='w-full overflow-auto'>
       <Table>
         <TableHeader>
           <TableRow>

@@ -1,6 +1,11 @@
 'use client';
 
-import { Card } from '@/components/common/card';
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/common/card';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import {
@@ -25,13 +30,14 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 interface BarChartProps {
   title: string;
+  description?: string;
   data?: {
     name: string;
     value: number;
   }[];
 }
 
-export default function BarChart({ title, data }: BarChartProps) {
+export default function BarChart({ title, description, data }: BarChartProps) {
   const [mounted, setMounted] = useState<boolean>(false);
   const { resolvedTheme } = useTheme();
 
@@ -41,18 +47,20 @@ export default function BarChart({ title, data }: BarChartProps) {
 
   if (!mounted || !data)
     return (
-      <Card className='flex h-96 w-full flex-col overflow-hidden p-6'>
-        <div className='mb-5'>
-          <h2 className='text-2xl font-bold'>{title}</h2>
-        </div>
+      <Card className='flex h-96 w-full flex-col overflow-hidden border'>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+          {description && <CardDescription>{description}</CardDescription>}
+        </CardHeader>
       </Card>
     );
 
   return (
-    <Card className='flex h-96 w-full flex-col overflow-hidden p-6'>
-      <div className='mb-5'>
-        <h2 className='text-2xl font-bold'>{title}</h2>
-      </div>
+    <Card className='flex h-96 w-full flex-col overflow-hidden'>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
+      </CardHeader>
       <ResponsiveContainer width='100%' height='100%'>
         <BarChartComponent width={500} height={400} data={data}>
           <defs>
@@ -79,9 +87,17 @@ export default function BarChart({ title, data }: BarChartProps) {
           </defs>
           <XAxis
             dataKey='name'
+            type='category'
             tickLine={false}
             axisLine={false}
-            className='capitalize'
+            width={50}
+            className='text-sm capitalize'
+            tick={{
+              fill:
+                resolvedTheme === 'dark'
+                  ? 'hsl(215 20.2% 65.1%)'
+                  : 'hsl(215.4 16.3% 46.9%)',
+            }}
           />
           <Tooltip
             cursor={{
@@ -89,6 +105,7 @@ export default function BarChart({ title, data }: BarChartProps) {
                 resolvedTheme === 'dark'
                   ? 'hsl(217.2 32.6% 17.5%)'
                   : 'hsl(210 40% 96.1%)',
+              opacity: 0.2,
             }}
             content={<CustomTooltip />}
           />
