@@ -8,7 +8,7 @@ export default async function MainStats() {
 
   if (!success?.data || error)
     return (
-      <section className='grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4'>
+      <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
         <Card title='Unique Visits' value='0' difference={0} />
         <Card title='Visits' value='0' difference={0} />
         <Card title='Top Country' value='N/D' difference={0} />
@@ -19,7 +19,7 @@ export default async function MainStats() {
   const { uniqueVisitors, visits, topCountry, topReferrer } = success.data;
 
   return (
-    <section className='grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4'>
+    <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
       <Card
         title={uniqueVisitors.title}
         value={uniqueVisitors.value}
