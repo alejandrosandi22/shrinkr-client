@@ -18,7 +18,11 @@ export default function SubmitButton({
   const { pending } = useFormStatus();
 
   return (
-    <Button className={cn('w-full', className)} aria-disabled={pending}>
+    <Button
+      type='submit'
+      className={cn('w-full', className)}
+      aria-disabled={pending}
+    >
       {pending ? <Ring color='#FFFFFF' size={24} /> : children}
     </Button>
   );
