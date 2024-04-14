@@ -46,7 +46,7 @@ export async function getURLsByUser(): Promise<QueryResponse<URLModel[]>> {
 
     return {
       success: {
-        message: 'Success',
+        message: 'Data received successfully',
         data: data.map((url: any) => ({
           id: url.id,
           originalUrl: url.original_url,
