@@ -2,17 +2,17 @@ import { ChartDataValues } from '@/types';
 
 export interface TopDevice {
   name: string;
-  value: number;
+  value: string;
 }
 
 export interface TopReferrer {
   name: string;
-  value: number;
+  value: string;
 }
 
 export interface TopPlatform {
   name: string;
-  value: number;
+  value: string;
 }
 
 export interface TopCountry {
