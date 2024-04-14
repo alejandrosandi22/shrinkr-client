@@ -1,21 +1,23 @@
 import AreaChart from '@/components/common/charts/area-chart';
+import { ChartDataValues } from '@/types';
+import dayjs from 'dayjs';
 
-const data = [
-  { name: 'Sunday', value: 150 },
-  { name: 'Monday', value: 220 },
-  { name: 'Tuesday', value: 300 },
-  { name: 'Wednesday', value: 268 },
-  { name: 'Thursday', value: 320 },
-  { name: 'Friday', value: 400 },
-  { name: 'Saturday', value: 302 },
-];
+interface StatsProps {
+  data: ChartDataValues[] | undefined;
+}
 
-export default function Last7Days() {
+export default function Last7Days({ data }: StatsProps) {
+  if (!data) return null;
+
+  const formatData = data.map((item) => ({
+    name: dayjs(item.name).format('MMM D'),
+    value: item.value,
+  }));
   return (
     <AreaChart
       title='Last 7 days'
       description='Performance of the last 7 days'
-      data={data}
+      data={formatData}
     />
   );
 }

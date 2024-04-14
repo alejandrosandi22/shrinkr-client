@@ -1,16 +1,22 @@
 import Browsers from '@/components/dashboard/urls/url/browsers';
+import DaysWithMoreVisits from '@/components/dashboard/urls/url/days-with-more-visits';
 import Devices from '@/components/dashboard/urls/url/devices';
-import MostActiveDays from '@/components/dashboard/urls/url/last-7-days';
+import Last7Days from '@/components/dashboard/urls/url/last-7-days';
 import MainStats from '@/components/dashboard/urls/url/main-stats';
-import MoreActiveDays from '@/components/dashboard/urls/url/more-active-days';
 import Platforms from '@/components/dashboard/urls/url/platforms';
 import Referrers from '@/components/dashboard/urls/url/referrers';
 import URLInformation from '@/components/dashboard/urls/url/url-information';
 import VisitsByCountry from '@/components/dashboard/urls/url/visits-by-country';
+import { getStatsCount } from '@/services/analytics/queries/getStatsCount';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default async function URLPage({ params }: { params: { url: string } }) {
+  const response = await getStatsCount(params.url);
+
+  if (!response.success) return null;
+  const { data } = response.success;
+
   return (
     <div>
       <header className='mb-5 flex items-center gap-5'>
@@ -20,18 +26,22 @@ export default async function URLPage({ params }: { params: { url: string } }) {
         <h1 className='mb-px text-2xl font-bold'>URL stats</h1>
       </header>
       <main className='space-y-5'>
-        <URLInformation />
-        <MainStats />
+        <URLInformation url={params.url} />
+        <MainStats
+          visits={data.visits}
+          uniqueVisitors={data.uniqueVisitors}
+          returnVisitors={data.returnVisitors}
+        />
         <section>
-          <MostActiveDays />
+          <Last7Days data={data.last7DaysPerformance} />
         </section>
         <section className='grid gap-5 xl:grid-cols-2'>
-          <Browsers />
-          <Devices />
-          <Referrers />
-          <Platforms />
-          <VisitsByCountry />
-          <MoreActiveDays />
+          <Browsers data={data.browsers} />
+          <Devices data={data.devices} />
+          <Referrers data={data.referrers} />
+          <Platforms data={data.platforms} />
+          <VisitsByCountry data={data.visitsByCountry} />
+          <DaysWithMoreVisits data={data.daysWithMoreVisits} />
         </section>
       </main>
     </div>

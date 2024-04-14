@@ -37,7 +37,7 @@ interface PieChartProps {
   description?: string;
   data?: {
     name: string;
-    value: number;
+    value: string;
   }[];
 }
 

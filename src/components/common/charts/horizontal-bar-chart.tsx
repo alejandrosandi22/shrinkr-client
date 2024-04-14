@@ -22,9 +22,9 @@ import {
 interface HorizontalBarChartProps {
   title: string;
   description?: string;
-  data: {
+  data?: {
     name: string;
-    value: number;
+    value: string;
   }[];
 }
 

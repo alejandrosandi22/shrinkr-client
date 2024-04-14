@@ -1,28 +1,10 @@
 import HorizontalBarChart from '@/components/common/charts/horizontal-bar-chart';
+import { ChartDataValues } from '@/types';
 
-const data = [
-  {
-    name: 'Instargam',
-    value: 623,
-  },
-  {
-    name: 'Facebook',
-    value: 429,
-  },
-  {
-    name: 'Twitter',
-    value: 302,
-  },
-  {
-    name: 'Direct Search',
-    value: 160,
-  },
-  {
-    name: 'Tik Tok',
-    value: 98,
-  },
-];
+interface StatsProps {
+  data: ChartDataValues[] | undefined;
+}
 
-export default function Referrers() {
+export default function Referrers({ data }: StatsProps) {
   return <HorizontalBarChart title='Referrers' data={data} />;
 }

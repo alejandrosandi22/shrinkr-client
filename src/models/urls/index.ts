@@ -1,4 +1,4 @@
-export interface Url {
+export interface URLModel {
   id: number;
   originalUrl: string;
   shortUrl: string;

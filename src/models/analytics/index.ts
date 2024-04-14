@@ -1,16 +1,18 @@
+import { ChartDataValues } from '@/types';
+
 export interface TopDevice {
   name: string;
-  value: number;
+  value: string;
 }
 
 export interface TopReferrer {
   name: string;
-  value: number;
+  value: string;
 }
 
 export interface TopPlatform {
   name: string;
-  value: number;
+  value: string;
 }
 
 export interface TopCountry {
@@ -31,4 +33,17 @@ export interface MainStats {
   visits: MainStatsValues;
   topCountry: MainStatsValues;
   topReferrer: MainStatsValues;
+}
+
+export interface URLStats {
+  devices: ChartDataValues[];
+  platforms: ChartDataValues[];
+  browsers: ChartDataValues[];
+  referrers: ChartDataValues[];
+  visitsByCountry: ChartDataValues[];
+  daysWithMoreVisits: ChartDataValues[];
+  last7DaysPerformance: ChartDataValues[];
+  visits: number;
+  uniqueVisitors: number;
+  returnVisitors: number;
 }

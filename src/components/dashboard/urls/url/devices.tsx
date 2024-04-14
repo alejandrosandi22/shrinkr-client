@@ -1,24 +1,10 @@
 import HorizontalBarChart from '@/components/common/charts/horizontal-bar-chart';
+import { ChartDataValues } from '@/types';
 
-const data = [
-  {
-    name: 'Laptop',
-    value: 623,
-  },
-  {
-    name: 'Desktop',
-    value: 429,
-  },
-  {
-    name: 'Phone',
-    value: 302,
-  },
-  {
-    name: 'Tablet',
-    value: 160,
-  },
-];
+interface StatsProps {
+  data: ChartDataValues[] | undefined;
+}
 
-export default function Devices() {
+export default async function Devices({ data }: StatsProps) {
   return <HorizontalBarChart title='Devices' data={data} />;
 }
