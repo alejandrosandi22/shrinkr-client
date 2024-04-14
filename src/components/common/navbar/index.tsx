@@ -7,6 +7,10 @@ import Options from './options';
 export default async function Navbar() {
   const data = await getUser();
 
+  const { error, success } = data;
+
+  if (error || !success) return null;
+
   return (
     <header className='relative z-40 px-5 py-5 text-sm md:px-10'>
       <nav className='flex items-center justify-between gap-3'>
@@ -24,7 +28,7 @@ export default async function Navbar() {
         </div>
 
         <div className='flex items-center gap-5'>
-          <Options data={data} />
+          <Options data={success.data} />
         </div>
       </nav>
     </header>
