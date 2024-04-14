@@ -21,9 +21,9 @@ import {
 interface LineChartProps {
   title: string;
   description?: string;
-  data: {
+  data?: {
     name: string;
-    value: number;
+    value: string;
   }[];
 }
 

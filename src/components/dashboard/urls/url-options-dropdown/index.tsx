@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/common/dropdown';
-import { Url } from '@/models/urls';
+import { URLModel } from '@/models/urls';
 import { deleteUrl } from '@/services/urls/mutations/deleteUrl';
 import {
   ChartBarIcon,
@@ -16,7 +16,7 @@ import Link from 'next/link';
 import UpdateURLForm from '../update-url-form';
 
 interface UrlOptionsDropdownProps {
-  url: Url;
+  url: URLModel;
 }
 
 export default function UrlOptionsDropdown({ url }: UrlOptionsDropdownProps) {

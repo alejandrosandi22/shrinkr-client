@@ -5,12 +5,12 @@ import {
   JWT_SECRET,
   SERVER_BASE_API,
 } from '@/lib/constants';
-import { Url } from '@/models/urls';
+import { URLModel } from '@/models/urls';
 import { QueryResponse } from '@/types';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 
-export async function getURLsByUser(): Promise<QueryResponse<Url[]>> {
+export async function getURLsByUser(): Promise<QueryResponse<URLModel[]>> {
   try {
     const access_token = cookies().get(COOKIE_ACCESS_TOKEN);
 

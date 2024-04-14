@@ -1,11 +1,10 @@
 import HorizontalBarChart from '@/components/common/charts/horizontal-bar-chart';
+import { ChartDataValues } from '@/types';
 
-const data = [
-  { name: 'Chrome', value: 402 },
-  { name: 'Safari', value: 312 },
-  { name: 'Firefox', value: 125 },
-  { name: 'Other', value: 59 },
-];
-export default function Browsers() {
+interface StatsProps {
+  data: ChartDataValues[] | undefined;
+}
+
+export default function Browsers({ data }: StatsProps) {
   return <HorizontalBarChart title='Browsers' data={data} />;
 }
