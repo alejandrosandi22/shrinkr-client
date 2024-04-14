@@ -28,3 +28,8 @@ export interface MutationResponse extends FormErrorState {
     data?: any;
   } | null;
 }
+
+export interface ChartDataValues {
+  name: string;
+  value: string;
+}
