@@ -33,3 +33,7 @@ export interface ChartDataValues {
   name: string;
   value: string;
 }
+
+export interface StatsProps {
+  data: ChartDataValues[] | undefined;
+}
