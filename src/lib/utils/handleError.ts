@@ -1,14 +1,15 @@
 import { ErrorState, FormErrorState } from '@/types';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+interface HandleError extends FormErrorState {
+  success: null;
 }
 
-export function handleError(errorState: ErrorState | string): FormErrorState {
+export default function handleError(
+  errorState: ErrorState | string,
+): HandleError {
   if (typeof errorState === 'string') {
     return {
+      success: null,
       error: {
         message: errorState,
       },
@@ -16,6 +17,7 @@ export function handleError(errorState: ErrorState | string): FormErrorState {
   }
 
   return {
+    success: null,
     error: {
       message: errorState.message,
       type: errorState.type,

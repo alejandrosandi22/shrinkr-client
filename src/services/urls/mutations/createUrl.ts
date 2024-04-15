@@ -1,15 +1,9 @@
 'use server';
 
-import {
-  COOKIE_ACCESS_TOKEN,
-  JWT_SECRET,
-  SERVER_BASE_API,
-} from '@/lib/constants';
-import { handleError } from '@/lib/utils';
+import { SERVER_BASE_API } from '@/lib/constants';
+import { getAccessToken, handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
-import jwt, { JwtPayload } from 'jsonwebtoken';
 import { revalidateTag } from 'next/cache';
-import { cookies } from 'next/headers';
 
 export async function createUrl(
   prevState: MutationResponse,
@@ -17,12 +11,10 @@ export async function createUrl(
 ): Promise<MutationResponse> {
   let resData = undefined;
   try {
-    const access_token = cookies().get(COOKIE_ACCESS_TOKEN);
+    const result = await getAccessToken();
+    if (!result) return handleError('User is not authorized');
 
-    if (!access_token)
-      return handleError('Something went wrong! Try again later');
-
-    const authToken = jwt.verify(access_token.value, JWT_SECRET) as JwtPayload;
+    const { accessToken, decodedAccessToken } = result;
 
     const customAlias = formData.get('customAlias');
     const expirationDate = formData.get('expirationDate');
@@ -31,7 +23,7 @@ export async function createUrl(
       original_url: formData.get('originalUrl'),
       expiration_date: expirationDate === '' ? null : expirationDate,
       custom_alias: customAlias === '' ? null : customAlias,
-      user_id: authToken.sub,
+      user_id: decodedAccessToken.sub,
     };
 
     const response = await fetch(`${SERVER_BASE_API}/urls/create`, {
@@ -39,7 +31,7 @@ export async function createUrl(
       body: JSON.stringify(rawFormData),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${access_token.value}`,
+        Authorization: `Bearer ${accessToken.value}`,
       },
     });
 
@@ -60,5 +52,6 @@ export async function createUrl(
       data: resData.short_url,
       message: 'Successfully url added',
     },
+    error: null,
   };
 }
