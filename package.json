@@ -24,7 +24,7 @@
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.10",
     "jsonwebtoken": "^9.0.2",
-    "next": "14.1.4",
+    "next": "14.2.1",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-day-picker": "^8.10.0",
