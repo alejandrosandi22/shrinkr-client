@@ -7,9 +7,7 @@ import Options from './options';
 export default async function Navbar() {
   const data = await getUser();
 
-  const { error, success } = data;
-
-  if (error || !success) return null;
+  const { success } = data;
 
   return (
     <header className='relative z-40 px-5 py-5 text-sm md:px-10'>
@@ -28,7 +26,7 @@ export default async function Navbar() {
         </div>
 
         <div className='flex items-center gap-5'>
-          <Options data={success.data} />
+          <Options data={success?.data} />
         </div>
       </nav>
     </header>

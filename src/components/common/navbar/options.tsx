@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function Options({ data }: { data: User | null }) {
+export default function Options({ data }: { data?: User | null }) {
   const router = useRouter();
 
   useEffect(() => {
