@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/common/table';
+import { CLIENT_APP_URL } from '@/lib/constants';
 import { getURLInfo } from '@/services/urls/queries/getURLInfo';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -38,7 +39,9 @@ export default async function URLInformation({ url }: { url: string }) {
         <TableBody>
           <TableRow>
             <TableCell>{data.originalUrl}</TableCell>
-            <TableCell>https://shrk.io/{data.shortUrl}</TableCell>
+            <TableCell>
+              {CLIENT_APP_URL}/{data.shortUrl}
+            </TableCell>
             <TableCell>
               {data.expirationDate
                 ? dayjs(data.expirationDate).format('MMMM D, YYYY h:mm A')

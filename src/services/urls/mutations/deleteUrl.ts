@@ -1,41 +1,28 @@
 'use server';
 
-import { COOKIE_ACCESS_TOKEN, SERVER_BASE_API } from '@/lib/constants';
+import { SERVER_BASE_API } from '@/lib/constants';
+import { getAccessToken, handleError } from '@/lib/utils';
 import { revalidateTag } from 'next/cache';
-import { cookies } from 'next/headers';
 
 export async function deleteUrl(id: number) {
   try {
-    const access_token = cookies().get(COOKIE_ACCESS_TOKEN);
+    const result = await getAccessToken();
+    if (!result) return handleError('User is not authorized');
 
-    if (!access_token)
-      return {
-        error: {
-          message: 'Something went wrong! Try again later',
-        },
-      };
+    const { accessToken } = result;
 
     const response = await fetch(`${SERVER_BASE_API}/urls/delete/${id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${access_token.value}`,
+        Authorization: `Bearer ${accessToken.value}`,
       },
     });
 
-    const data = response.json();
+    const data = await response.json();
 
-    if (!response.ok)
-      return {
-        error: {
-          message: 'Something went wrong! Try again later',
-        },
-      };
+    if (!response.ok) return handleError(data.message);
   } catch (error) {
-    return {
-      error: {
-        message: 'Something went wrong! Try again later',
-      },
-    };
+    return handleError('Something went wrong! Try again later');
   }
 
   revalidateTag('user-urls');

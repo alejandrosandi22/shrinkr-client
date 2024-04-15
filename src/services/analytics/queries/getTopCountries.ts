@@ -1,27 +1,21 @@
-import {
-  COOKIE_ACCESS_TOKEN,
-  JWT_SECRET,
-  SERVER_BASE_API,
-} from '@/lib/constants';
-import { handleError } from '@/lib/utils';
+import { SERVER_BASE_API } from '@/lib/constants';
+import { getAccessToken, handleError } from '@/lib/utils';
 import { TopCountry } from '@/models/analytics';
 import { QueryResponse } from '@/types';
-import jwt from 'jsonwebtoken';
-import { cookies } from 'next/headers';
 
 export async function getTopCountries(): Promise<QueryResponse<TopCountry[]>> {
   try {
-    const access_token = cookies().get(COOKIE_ACCESS_TOKEN);
-    if (!access_token) return handleError('Something went wrong');
+    const result = await getAccessToken();
+    if (!result) return handleError('User is not authorized');
 
-    const authToken = jwt.verify(access_token.value, JWT_SECRET);
+    const { accessToken, decodedAccessToken } = result;
 
     const response = await fetch(
-      `${SERVER_BASE_API}/analytics/top-countries/${authToken.sub}`,
+      `${SERVER_BASE_API}/analytics/top-countries/${decodedAccessToken.sub}`,
       {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${access_token.value}`,
+          Authorization: `Bearer ${accessToken.value}`,
         },
       },
     );
@@ -40,6 +34,7 @@ export async function getTopCountries(): Promise<QueryResponse<TopCountry[]>> {
           mostVisitedUrl: data.short_url,
         })),
       },
+      error: null,
     };
   } catch (error) {
     return handleError('Something went wrong');

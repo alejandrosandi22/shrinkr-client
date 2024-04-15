@@ -1,27 +1,18 @@
 'use server';
 
-import {
-  COOKIE_ACCESS_TOKEN,
-  JWT_SECRET,
-  SERVER_BASE_API,
-} from '@/lib/constants';
-import { handleError } from '@/lib/utils';
+import { SERVER_BASE_API } from '@/lib/constants';
+import { getAccessToken, handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
-import jwt from 'jsonwebtoken';
-import { cookies } from 'next/headers';
 
 export async function updateAccount(
   prevState: MutationResponse,
   formData: FormData,
 ): Promise<MutationResponse> {
   try {
-    const accessToken = cookies().get(COOKIE_ACCESS_TOKEN);
-    if (!accessToken)
-      return handleError('Something went wrong! Try again later');
+    const result = await getAccessToken();
+    if (!result) return handleError('User is not authorized');
 
-    const decodedAccessToken = jwt.verify(accessToken.value, JWT_SECRET);
-    if (!decodedAccessToken)
-      return handleError('Something went wrong! Try again later');
+    const { accessToken, decodedAccessToken } = result;
 
     const current_password = formData.get('current_password');
     const password = formData.get('new-password');
@@ -55,6 +46,7 @@ export async function updateAccount(
       success: {
         message: 'Updated account',
       },
+      error: null,
     };
   } catch (error) {
     return handleError('Something went wrong! Try again later');

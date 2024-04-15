@@ -15,15 +15,15 @@ export type ErrorState = {
 };
 
 export type FormErrorState = {
-  error?: ErrorState | null;
+  error: ErrorState | null;
 };
 
 export interface QueryResponse<T> extends FormErrorState {
-  success?: SuccessState<T> | null;
+  success: SuccessState<T> | null;
 }
 
 export interface MutationResponse extends FormErrorState {
-  success?: {
+  success: {
     message: string;
     data?: any;
   } | null;
