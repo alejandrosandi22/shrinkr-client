@@ -10,7 +10,7 @@ export default async function Navbar() {
   const { success } = data;
 
   return (
-    <header className='relative z-40 px-5 py-5 text-sm md:px-10'>
+    <header className='absolute z-40 w-full px-5 py-5 text-sm md:px-10'>
       <nav className='flex items-center justify-between gap-3'>
         <div>
           <Link href='/' className='flex items-center gap-2 text-lg font-bold'>
