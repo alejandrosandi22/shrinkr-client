@@ -56,8 +56,6 @@ pnpm install --save-dev husky @commitlint/{config-conventional,cli}
 - `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 - `test`: Adding missing tests or correcting existing tests
 
-Remember, the goal of these conventions is to make your commit history easier to read and understand. Each commit should be a self-contained change to your codebase. By categorizing each commit, other developers (and you, in the future) can more easily understand the history of your project.
-
 Now, whenever you make a commit, Husky will ensure that your commit message conforms to the conventional commit format specified by Commitlint.
 
 ## Credits

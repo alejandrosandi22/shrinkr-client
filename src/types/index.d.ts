@@ -15,17 +15,25 @@ export type ErrorState = {
 };
 
 export type FormErrorState = {
-  error?: ErrorState | null;
+  error: ErrorState | null;
 };
 
-export type QueryResponse<T> = {
+export interface QueryResponse<T> extends FormErrorState {
   success: SuccessState<T> | null;
-  error: ErrorState;
-};
+}
 
 export interface MutationResponse extends FormErrorState {
-  success?: {
+  success: {
     message: string;
-    state: boolean;
+    data?: any;
   } | null;
+}
+
+export interface ChartDataValues {
+  name: string;
+  value: string;
+}
+
+export interface StatsProps {
+  data: ChartDataValues[] | undefined;
 }
