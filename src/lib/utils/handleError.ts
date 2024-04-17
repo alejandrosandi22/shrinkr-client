@@ -5,9 +5,17 @@ interface HandleError extends FormErrorState {
 }
 
 export default function handleError(
-  errorState: ErrorState | string,
+  errorState: ErrorState | string | 'default',
 ): HandleError {
   if (typeof errorState === 'string') {
+    if (errorState === 'default')
+      return {
+        success: null,
+        error: {
+          message: 'Something went wrong! Try again later',
+        },
+      };
+
     return {
       success: null,
       error: {
