@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/common/dropdown';
 import { User } from '@/models/users';
-import { signOut } from '@/services/auth/signOut';
+import { signOut } from '@/services/auth/mutations/signOut';
 import {
   ArrowLeftStartOnRectangleIcon,
   Cog8ToothIcon,
@@ -16,11 +16,8 @@ import {
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useFormState } from 'react-dom';
 
 export default function UserDropdown({ user }: { user: User }) {
-  const [state, dispatch] = useFormState(signOut, undefined);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -53,15 +50,17 @@ export default function UserDropdown({ user }: { user: User }) {
             Settings
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link
-            href='/dashboard'
-            className='flex w-full items-center gap-3 rounded-md text-sm'
-          >
-            <ArrowLeftStartOnRectangleIcon width={20} height={20} />
-            Log out
-          </Link>
-        </DropdownMenuItem>
+        <div className='relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-muted focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'>
+          <form action={signOut}>
+            <button
+              type='submit'
+              className='flex w-full cursor-pointer items-center gap-3 rounded-md text-sm'
+            >
+              <ArrowLeftStartOnRectangleIcon width={20} height={20} />
+              Log out
+            </button>
+          </form>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );
