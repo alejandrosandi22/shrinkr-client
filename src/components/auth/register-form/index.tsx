@@ -4,7 +4,7 @@ import SocialAuthentication from '@/components/auth/social-authentication';
 import { Input } from '@/components/common/input';
 import { Label } from '@/components/common/label';
 import SubmitButton from '@/components/common/submit-button';
-import { register } from '@/services/auth/register';
+import { register } from '@/services/auth/mutations/register';
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
 
@@ -62,14 +62,31 @@ export default function LoginForm() {
       </div>
       <p className='my-5 text-center'>or</p>
       <SocialAuthentication />
-      <p className='text-sm font-light text-gray-500 dark:text-gray-400'>
+      <p className='text-sm text-muted-foreground'>
         Already have an account?{' '}
         <Link
           href='/auth/login'
-          className='text-secondary-600 dark:text-primary-500 font-medium hover:underline'
+          className='text-primary underline-offset-4 hover:underline'
         >
           Log in
         </Link>
+      </p>
+      <p className='pt-20 text-sm text-muted-foreground'>
+        By continuing, you agree to Shrinkr&apos;s{' '}
+        <Link
+          href='/terms-and-conditions'
+          className='text-primary underline-offset-4 hover:underline'
+        >
+          Terms of Service{' '}
+        </Link>
+        and{' '}
+        <Link
+          href='/privacy-policy'
+          className='text-primary underline-offset-4 hover:underline'
+        >
+          Privacy Policy{' '}
+        </Link>
+        , and to receive periodic emails with updates.
       </p>
     </form>
   );
