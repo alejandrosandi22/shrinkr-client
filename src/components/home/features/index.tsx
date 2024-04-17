@@ -45,8 +45,8 @@ export default function Features() {
             </div>
             <CardTitle className='mb-3'>Security</CardTitle>
             <CardDescription>
-              Ensure link integrity with built-in measures like link expiration,
-              password protection, and optional CAPTCHA verification.
+              Safeguard data with encryption protocols and ensure uninterrupted
+              service reliability.
             </CardDescription>
           </div>
         </div>
