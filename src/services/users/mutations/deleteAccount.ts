@@ -33,7 +33,5 @@ export async function deleteAccount() {
     return handleError('Something went wrong');
   }
 
-  console.log('redirect');
-
   permanentRedirect('/auth/login?deleted=true');
 }

@@ -1,20 +1,53 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import SocialAuthentication from '@/components/auth/social-authentication';
+import { Checkbox } from '@/components/common/checkbox';
 import { Input } from '@/components/common/input';
 import { Label } from '@/components/common/label';
 import SubmitButton from '@/components/common/submit-button';
-import { authenticate } from '@/services/auth/authenticate';
+import { authenticate } from '@/services/auth/mutations/authenticate';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 import toast from 'react-hot-toast';
 
 const FORM_INITIAL_STATE = { error: null, success: null };
+const LOCAL_STORAGE_KEY = 'shrinkr-remember-user';
 
 export default function LoginForm() {
   const [formState, dispatch] = useFormState(authenticate, FORM_INITIAL_STATE);
+  const [email, setEmail] = useState<string>('');
+  const [rememberEmail, setRememberEmail] = useState<boolean>(false);
   const { error } = formState;
+
+  const updateCheckbox = (checked: boolean) => {
+    setRememberEmail(checked);
+  };
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const item = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (item) {
+      setEmail(item);
+      setRememberEmail(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    if (!rememberEmail) {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      return;
+    }
+
+    if (rememberEmail) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, email);
+      return;
+    }
+  }, [email, rememberEmail]);
 
   useEffect(() => {
     if (!error) return;
@@ -37,6 +70,8 @@ export default function LoginForm() {
             type='email'
             name='email'
             placeholder='Enter your email address'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -54,25 +89,20 @@ export default function LoginForm() {
         <div className='mt-3 flex items-center justify-between'>
           <div className='flex items-start'>
             <div className='flex h-5 items-center'>
-              <input
+              <Checkbox
                 id='remember'
                 aria-describedby='remember'
-                type='checkbox'
-                className='focus:ring-3 focus:ring-primary-300 dark:border-primary-600 dark:bg-primary-700 dark:focus:ring-primary-600 h-4 w-4 rounded border border-gray-300 bg-gray-50 dark:ring-offset-gray-800'
+                checked={rememberEmail}
+                onCheckedChange={updateCheckbox}
               />
             </div>
             <div className='ml-3 text-sm'>
-              <label
-                htmlFor='remember'
-                className='text-gray-500 dark:text-gray-300'
-              >
-                Remember me
-              </label>
+              <Label htmlFor='remember'>Remember me</Label>
             </div>
           </div>
           <Link
-            href='auth/recovery'
-            className='text-primary-600 dark:text-primary-500 text-sm font-medium hover:underline'
+            href='/auth/recovery'
+            className='text-sm text-primary underline-offset-4 hover:underline'
           >
             Forgot password?
           </Link>
@@ -83,11 +113,11 @@ export default function LoginForm() {
       </div>
       <p className='my-5 text-center'>or</p>
       <SocialAuthentication />
-      <p className='text-sm font-light text-gray-500 dark:text-gray-400'>
+      <p className='text-sm text-muted-foreground'>
         Don’t have an account yet?{' '}
         <Link
           href='/auth/signup'
-          className='text-secondary-600 dark:text-primary-500 font-medium hover:underline'
+          className='text-primary underline-offset-4 hover:underline'
         >
           Sign up
         </Link>
