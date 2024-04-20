@@ -1,10 +1,6 @@
 import AreaChart from '@/components/common/charts/area-chart';
-import { ChartDataValues } from '@/types';
+import { StatsProps } from '@/types';
 import dayjs from 'dayjs';
-
-interface StatsProps {
-  data: ChartDataValues[] | undefined;
-}
 
 export default function Last7Days({ data }: StatsProps) {
   if (!data) return null;

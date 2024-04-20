@@ -1,34 +1,23 @@
 'use server';
 
-import {
-  COOKIE_ACCESS_TOKEN,
-  JWT_SECRET,
-  SERVER_BASE_API,
-} from '@/lib/constants';
+import { SERVER_BASE_API } from '@/lib/constants';
+import { getAccessToken, handleError } from '@/lib/utils';
 import { URLModel } from '@/models/urls';
 import { QueryResponse } from '@/types';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { cookies } from 'next/headers';
 
 export async function getURLsByUser(): Promise<QueryResponse<URLModel[]>> {
   try {
-    const access_token = cookies().get(COOKIE_ACCESS_TOKEN);
+    const result = await getAccessToken();
+    if (!result) return handleError('User is not authorized');
 
-    if (!access_token)
-      return {
-        error: {
-          message: 'User is not authorized',
-        },
-      };
-
-    const authToken = jwt.verify(access_token.value, JWT_SECRET) as JwtPayload;
+    const { accessToken, decodedAccessToken } = result;
 
     const response = await fetch(
-      `${SERVER_BASE_API}/urls/user/${authToken.sub}`,
+      `${SERVER_BASE_API}/urls/user/${decodedAccessToken.sub}`,
       {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${access_token.value}`,
+          Authorization: `Bearer ${accessToken.value}`,
         },
         next: { tags: ['user-urls'] },
       },
@@ -36,14 +25,7 @@ export async function getURLsByUser(): Promise<QueryResponse<URLModel[]>> {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      return {
-        error: {
-          message: data.message,
-        },
-      };
-    }
-
+    if (!response.ok) handleError(data.message);
     return {
       success: {
         message: 'Data received successfully',
@@ -59,12 +41,9 @@ export async function getURLsByUser(): Promise<QueryResponse<URLModel[]>> {
           updatedAt: url.updated_at,
         })),
       },
+      error: null,
     };
   } catch (error) {
-    return {
-      error: {
-        message: 'Error to get the url’s',
-      },
-    };
+    return handleError('Error to get the URLs');
   }
 }

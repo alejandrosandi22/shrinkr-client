@@ -4,11 +4,17 @@ import { Button } from '@/components/common/button';
 import { Input } from '@/components/common/input';
 import { Label } from '@/components/common/label';
 import { CLIENT_APP_URL } from '@/lib/constants';
-import { MutationResponse } from '@/types';
 import { CheckIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import { useCallback, useEffect, useRef } from 'react';
 
-export default function CopyToClipboard({ success }: MutationResponse) {
+interface CopyToClipboardProps {
+  success: {
+    message: string;
+    data?: any;
+  } | null;
+}
+
+export default function CopyToClipboard({ success }: CopyToClipboardProps) {
   const clipboard = useRef<HTMLButtonElement | null>(null);
   const tooltip = useRef<HTMLDivElement | null>(null);
   const defaultIconRef = useRef<HTMLSpanElement | null>(null);
