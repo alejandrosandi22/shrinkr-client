@@ -20,15 +20,12 @@ export async function verifyAccount(
   if (!decodedToken) return permanentRedirect('/');
 
   try {
-    const { email } = decodedToken;
-
-    const response = await fetch(`${SERVER_BASE_API}/auth/verify-account`, {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${SERVER_BASE_API}/auth/verify-account/${decodedToken.sub}`,
+      {
+        method: 'POST',
       },
-    });
+    );
 
     const data = await response.json();
     if (!response.ok) return handleError(data.message);
