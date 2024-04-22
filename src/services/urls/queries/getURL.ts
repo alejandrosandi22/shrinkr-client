@@ -9,6 +9,7 @@ export async function getURL(url: string): Promise<QueryResponse<URLModel>> {
   try {
     const response = await fetch(`${SERVER_BASE_API}/urls/short-url/${url}`, {
       method: 'GET',
+      cache: 'no-cache',
     });
 
     const data = await response.json();
