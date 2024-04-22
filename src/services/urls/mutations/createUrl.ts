@@ -1,6 +1,6 @@
 'use server';
 
-import { SERVER_BASE_API } from '@/lib/constants';
+import { GET_URL_TAG, SERVER_BASE_API } from '@/lib/constants';
 import { getAccessToken, handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
 import { revalidateTag } from 'next/cache';
@@ -45,7 +45,7 @@ export async function createUrl(
     return handleError('Something went wrong! Try again later');
   }
 
-  revalidateTag('user-urls');
+  revalidateTag(GET_URL_TAG);
 
   return {
     success: {
