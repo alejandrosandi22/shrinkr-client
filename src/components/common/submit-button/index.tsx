@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/common/button';
 import { cn } from '@/lib/utils';
-import { Ring } from '@uiball/loaders';
 import { ReactNode } from 'react';
 import { useFormStatus } from 'react-dom';
 
@@ -23,7 +22,11 @@ export default function SubmitButton({
       className={cn('w-full', className)}
       aria-disabled={pending}
     >
-      {pending ? <Ring color='#FFFFFF' size={24} /> : children}
+      {pending ? (
+        <div className='ldrs-ring-container ldrs-ring-sm' />
+      ) : (
+        children
+      )}
     </Button>
   );
 }
