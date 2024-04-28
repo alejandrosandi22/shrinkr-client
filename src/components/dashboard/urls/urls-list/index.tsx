@@ -10,6 +10,7 @@ import {
   TableRow,
 } from '@/components/common/table';
 import UrlOptionsDropdown from '@/components/dashboard/urls/url-options-dropdown';
+import { CLIENT_APP_URL } from '@/lib/constants';
 import { getURLsByUser } from '@/services/urls/queries/getURLsByUser';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -70,10 +71,10 @@ export default async function LinksList() {
                 </TableCell>
                 <TableCell>
                   <Link
-                    href={`${process.env.CLIENT_APP_URL}/${url.shortUrl}`}
+                    href={`${CLIENT_APP_URL}/${url.shortUrl}`}
                     target='_blank'
                   >
-                    {`${process.env.CLIENT_APP_URL}/${url.shortUrl}`}
+                    {`${CLIENT_APP_URL}/${url.shortUrl}`}
                   </Link>
                 </TableCell>
                 <TableCell>{url.requestCount}</TableCell>
