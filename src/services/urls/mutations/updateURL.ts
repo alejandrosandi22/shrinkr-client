@@ -5,7 +5,7 @@ import { getAccessToken, handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
 import { revalidateTag } from 'next/cache';
 
-export async function updateUrl(
+export async function updateURL(
   prevState: MutationResponse,
   formData: FormData,
 ): Promise<MutationResponse> {
