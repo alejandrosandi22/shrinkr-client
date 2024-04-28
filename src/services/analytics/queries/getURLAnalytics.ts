@@ -5,7 +5,7 @@ import { getAccessToken, handleError } from '@/lib/utils';
 import { URLStats } from '@/models/analytics';
 import { QueryResponse } from '@/types';
 
-export async function getStatsCount(
+export async function getURLAnalytics(
   shortURL: string,
 ): Promise<QueryResponse<URLStats>> {
   try {
@@ -15,7 +15,7 @@ export async function getStatsCount(
     const { accessToken } = result;
 
     const response = await fetch(
-      `${SERVER_BASE_API}/analytics/stats-count/${shortURL}`,
+      `${SERVER_BASE_API}/analytics/url-analytics/${shortURL}`,
       {
         method: 'GET',
         headers: {

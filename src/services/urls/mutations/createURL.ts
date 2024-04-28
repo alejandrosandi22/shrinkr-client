@@ -1,11 +1,11 @@
 'use server';
 
-import { SERVER_BASE_API } from '@/lib/constants';
+import { GET_URL_TAG, SERVER_BASE_API } from '@/lib/constants';
 import { getAccessToken, handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
 import { revalidateTag } from 'next/cache';
 
-export async function createUrl(
+export async function createURL(
   prevState: MutationResponse,
   formData: FormData,
 ): Promise<MutationResponse> {
@@ -21,7 +21,7 @@ export async function createUrl(
 
     const rawFormData = {
       original_url: formData.get('originalUrl'),
-      expiration_date: expirationDate === '' ? null : expirationDate,
+      expiration_date: expirationDate === 'undefined' ? null : expirationDate,
       custom_alias: customAlias === '' ? null : customAlias,
       user_id: decodedAccessToken.sub,
     };
@@ -45,7 +45,7 @@ export async function createUrl(
     return handleError('Something went wrong! Try again later');
   }
 
-  revalidateTag('user-urls');
+  revalidateTag(GET_URL_TAG);
 
   return {
     success: {

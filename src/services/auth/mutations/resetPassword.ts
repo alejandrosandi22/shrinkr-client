@@ -1,3 +1,5 @@
+'use server';
+
 import { SERVER_BASE_API } from '@/lib/constants';
 import { handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
@@ -14,8 +16,7 @@ export async function resetPassword(
       return handleError("Passwords doesn't match");
 
     const rawFormData = {
-      new_password: newPassword,
-      confirm_password: confirmPassword,
+      newPassword,
     };
 
     const response = await fetch(`${SERVER_BASE_API}/auth/reset`, {
@@ -27,7 +28,6 @@ export async function resetPassword(
     });
 
     const data = await response.json();
-
     if (!response.ok) return handleError(data.message);
 
     return {

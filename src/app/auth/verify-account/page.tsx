@@ -18,7 +18,7 @@ export default async function VerifyAccount({
 }) {
   await verifyAccount(searchParams?.token);
   return (
-    <main className='mx-auto w-full max-w-md p-6'>
+    <main className='absolute left-[50%] top-[50%] mx-auto w-full max-w-md translate-x-[-50%] translate-y-[-50%] p-6'>
       <Card>
         <CardHeader>
           <CardTitle>Your account has been verified!</CardTitle>
