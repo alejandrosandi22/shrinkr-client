@@ -1,3 +1,10 @@
+/**
+ * Parses the referrer URL to extract the name of the referring site.
+ * If the referring site is recognized, returns its name.
+ * Otherwise, returns the hostname of the referring URL without the domain extension.
+ * @param referrerUrl The URL of the referrer.
+ * @returns The name of the referring site if recognized, otherwise the hostname of the referrer URL without the domain extension.
+ */
 export default function referrerParser(referrerUrl: string): string {
   const siteNames: { [key: string]: string } = {
     Google: 'www.google.',
