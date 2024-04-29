@@ -1,23 +1,34 @@
+'use server';
+
 import { SERVER_BASE_API } from '@/lib/constants';
 import { handleError } from '@/lib/utils';
-import { URLModel } from '@/models/urls';
 import { QueryResponse } from '@/types';
-import { redirect } from 'next/navigation';
 
-export async function getURL(url: string): Promise<QueryResponse<URLModel>> {
-  let originalURL = '';
+export async function getURL(
+  url: string,
+): Promise<QueryResponse<{ originalURL: string; shortURL: string }>> {
   try {
-    const response = await fetch(`${SERVER_BASE_API}/urls/short-url/${url}`, {
+    const response = await fetch(`${SERVER_BASE_API}/urls/get-url/${url}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     const data = await response.json();
     if (!response.ok) return handleError(data.message);
 
-    originalURL = data.original_url;
+    return {
+      success: {
+        message: 'Data received successfully',
+        data: {
+          originalURL: data.original_url,
+          shortURL: data.short_url,
+        },
+      },
+      error: null,
+    };
   } catch (error) {
     return handleError('Something went wrong');
   }
-
-  redirect(originalURL);
 }

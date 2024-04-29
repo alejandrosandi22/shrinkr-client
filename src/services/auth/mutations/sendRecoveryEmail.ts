@@ -4,19 +4,16 @@ import { SERVER_BASE_API } from '@/lib/constants';
 import { handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
 
-export async function supportEmail(
+export async function sendRecoveryEmail(
   prevState: MutationResponse,
   formData: FormData,
 ): Promise<MutationResponse> {
   try {
     const rawFormData = {
-      name: formData.get('name'),
       email: formData.get('email'),
-      reason: formData.get('reason'),
-      message: formData.get('message'),
     };
 
-    const response = await fetch(`${SERVER_BASE_API}/users/support`, {
+    const response = await fetch(`${SERVER_BASE_API}/auth/recovery`, {
       method: 'POST',
       body: JSON.stringify(rawFormData),
       headers: {
@@ -29,7 +26,7 @@ export async function supportEmail(
 
     return {
       success: {
-        message: 'Email sent successfully',
+        message: 'Check your email to reset your password',
       },
       error: null,
     };

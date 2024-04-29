@@ -4,19 +4,22 @@ import { SERVER_BASE_API } from '@/lib/constants';
 import { handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
 
-export async function supportEmail(
+export async function resetPassword(
   prevState: MutationResponse,
   formData: FormData,
 ): Promise<MutationResponse> {
   try {
+    const newPassword = formData.get('new-password');
+    const confirmPassword = formData.get('confirm-password');
+
+    if (newPassword !== confirmPassword)
+      return handleError("Passwords doesn't match");
+
     const rawFormData = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      reason: formData.get('reason'),
-      message: formData.get('message'),
+      newPassword,
     };
 
-    const response = await fetch(`${SERVER_BASE_API}/users/support`, {
+    const response = await fetch(`${SERVER_BASE_API}/auth/reset`, {
       method: 'POST',
       body: JSON.stringify(rawFormData),
       headers: {
@@ -29,11 +32,11 @@ export async function supportEmail(
 
     return {
       success: {
-        message: 'Email sent successfully',
+        message: 'Recovered password',
       },
       error: null,
     };
   } catch (error) {
-    return handleError('Something went wrong');
+    return handleError('default');
   }
 }

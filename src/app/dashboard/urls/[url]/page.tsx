@@ -1,3 +1,9 @@
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/common/card';
 import Browsers from '@/components/dashboard/urls/url/browsers';
 import DaysWithMoreVisits from '@/components/dashboard/urls/url/days-with-more-visits';
 import Devices from '@/components/dashboard/urls/url/devices';
@@ -7,14 +13,27 @@ import Platforms from '@/components/dashboard/urls/url/platforms';
 import Referrers from '@/components/dashboard/urls/url/referrers';
 import URLInformation from '@/components/dashboard/urls/url/url-information';
 import VisitsByCountry from '@/components/dashboard/urls/url/visits-by-country';
-import { getStatsCount } from '@/services/analytics/queries/getStatsCount';
+import { getURLAnalytics } from '@/services/analytics/queries/getURLAnalytics';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default async function URLPage({ params }: { params: { url: string } }) {
-  const response = await getStatsCount(params.url);
+  const response = await getURLAnalytics(params.url);
 
-  if (!response.success) return null;
+  if (!response.success)
+    return (
+      <div className='flex h-full items-center justify-center'>
+        <Card className='w-[420px] border-none bg-background shadow-none'>
+          <CardHeader className='text-center'>
+            <CardTitle className='text-4xl lg:text-7xl'>404</CardTitle>
+            <CardDescription>
+              The page you’re looking for doesn’t exist.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+
   const { data } = response.success;
 
   return (

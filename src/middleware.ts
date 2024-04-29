@@ -1,5 +1,5 @@
 import {
-  APP_BASE_URL,
+  CLIENT_APP_URL,
   COOKIE_ACCESS_TOKEN,
   SERVER_BASE_API,
 } from '@/lib/constants';
@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
     });
 
     if (!response.ok)
-      return NextResponse.redirect(`${APP_BASE_URL}/auth/login`);
+      return NextResponse.redirect(`${CLIENT_APP_URL}/auth/login`);
 
     const user = await response.json();
 
