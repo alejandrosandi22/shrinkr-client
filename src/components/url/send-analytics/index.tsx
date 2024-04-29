@@ -4,6 +4,7 @@
 import { Label } from '@/components/common/label';
 import NotFound from '@/components/common/not-found';
 import { PUBLIC_SERVER_BASE_API } from '@/lib/constants';
+import { referrerParser } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -68,7 +69,7 @@ export default function SendAnalytics({
       vendor: ua.device.vendor ?? 'unknown',
       platforms: ua.os.name ?? 'unknown',
       browser: ua.browser.name ?? 'unknown',
-      referrer: referrer ? referrer : 'Direct Search',
+      referrer: referrer ? referrerParser(referrer) : 'Direct Search',
     };
 
     handleSend(payload);
