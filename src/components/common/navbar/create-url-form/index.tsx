@@ -15,7 +15,7 @@ import { Input } from '@/components/common/input';
 import { Label } from '@/components/common/label';
 import CopyToClipboard from '@/components/common/navbar/create-url-form/copy-to-clipboard';
 import SubmitButton from '@/components/common/submit-button';
-import { createUrl } from '@/services/urls/mutations/createUrl';
+import { createURL } from '@/services/urls/mutations/createURL';
 import { useEffect, useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import toast from 'react-hot-toast';
@@ -23,7 +23,7 @@ import toast from 'react-hot-toast';
 const INITIAL_STATE = { success: null, error: null };
 
 export default function CreateURLForm() {
-  const [formState, dispatch] = useFormState(createUrl, INITIAL_STATE);
+  const [formState, dispatch] = useFormState(createURL, INITIAL_STATE);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const [expirationDate, setExpirationDate] = useState<Date | undefined>();
@@ -72,8 +72,15 @@ export default function CreateURLForm() {
             />
           </div>
           <div className='mb-5 space-y-2.5'>
-            <Label>Expiration Date (Optional)</Label>
+            <Label htmlFor='expirationDate'>Expiration Date (Optional)</Label>
             <DatePicker date={expirationDate} setDate={setExpirationDate} />
+            <input
+              id='expirationDate'
+              name='expirationDate'
+              type='text'
+              value={`${expirationDate}`}
+              hidden
+            />
           </div>
           <CopyToClipboard success={success} />
 

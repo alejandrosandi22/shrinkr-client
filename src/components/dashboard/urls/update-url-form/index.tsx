@@ -16,7 +16,7 @@ import { Label } from '@/components/common/label';
 import SubmitButton from '@/components/common/submit-button';
 import { Switch } from '@/components/common/switch';
 import { URLModel } from '@/models/urls';
-import { updateUrl } from '@/services/urls/mutations/updateUrl';
+import { updateURL } from '@/services/urls/mutations/updateURL';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
@@ -26,7 +26,7 @@ import toast from 'react-hot-toast';
 const INITIAL_STATE = { error: null, success: null };
 
 export default function UpdateURLForm({ url }: { url: URLModel }) {
-  const [formState, dispatch] = useFormState(updateUrl, INITIAL_STATE);
+  const [formState, dispatch] = useFormState(updateURL, INITIAL_STATE);
 
   const { error, success } = formState;
 

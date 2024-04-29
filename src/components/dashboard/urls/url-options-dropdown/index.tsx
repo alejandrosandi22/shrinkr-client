@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/common/dropdown';
 import { URLModel } from '@/models/urls';
-import { deleteUrl } from '@/services/urls/mutations/deleteUrl';
+import { deleteURL } from '@/services/urls/mutations/deleteURL';
 import {
   ChartBarIcon,
   EllipsisVerticalIcon,
@@ -20,7 +20,7 @@ interface UrlOptionsDropdownProps {
 }
 
 export default function UrlOptionsDropdown({ url }: UrlOptionsDropdownProps) {
-  const deleteUrlWithId = deleteUrl.bind(null, url.id);
+  const deleteURLWithId = deleteURL.bind(null, url.id);
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function UrlOptionsDropdown({ url }: UrlOptionsDropdownProps) {
             <UpdateURLForm url={url} />
           </div>
           <div className='relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-muted focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'>
-            <form action={deleteUrlWithId}>
+            <form action={deleteURLWithId}>
               <button className='flex w-full items-center gap-3 rounded-md text-sm'>
                 <TrashIcon height={24} width={24} />
                 Delete
