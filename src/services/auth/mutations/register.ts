@@ -4,7 +4,6 @@ import { COOKIE_ACCESS_TOKEN, SERVER_BASE_API } from '@/lib/constants';
 import { handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
 import { cookies } from 'next/headers';
-import { permanentRedirect } from 'next/navigation';
 
 export async function register(
   prevState: MutationResponse,
@@ -34,12 +33,17 @@ export async function register(
     }
 
     cookies().set(COOKIE_ACCESS_TOKEN, data.access_token);
+
+    return {
+      success: {
+        message: 'Check your email address to verify your account',
+      },
+      error: null,
+    };
   } catch (error) {
     if (error) {
       return handleError('Someting went wrong');
     }
     throw error;
   }
-
-  permanentRedirect('/dashboard');
 }

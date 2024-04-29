@@ -1,20 +1,19 @@
 'use server';
 
-import { COOKIE_ACCESS_TOKEN, SERVER_BASE_API } from '@/lib/constants';
-import { handleError } from '@/lib/utils';
+import { SERVER_BASE_API } from '@/lib/constants';
+import { getAccessToken, handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
 import { revalidateTag } from 'next/cache';
-import { cookies } from 'next/headers';
 
-export async function updateUrl(
+export async function updateURL(
   prevState: MutationResponse,
   formData: FormData,
 ): Promise<MutationResponse> {
   try {
-    const access_token = cookies().get(COOKIE_ACCESS_TOKEN);
+    const result = await getAccessToken();
+    if (!result) return handleError('User is not authorized');
 
-    if (!access_token)
-      return handleError('Something went wrong! Try again later');
+    const { accessToken } = result;
 
     const customAlias = formData.get('customAlias');
     const expirationDate = formData.get('expirationDate');
@@ -33,7 +32,7 @@ export async function updateUrl(
       method: 'PATCH',
       body: JSON.stringify(rawFormData),
       headers: {
-        Authorization: `Bearer ${access_token.value}`,
+        Authorization: `Bearer ${accessToken.value}`,
         'Content-Type': 'application/json',
       },
     });
@@ -51,5 +50,6 @@ export async function updateUrl(
     success: {
       message: 'URL updated successfully',
     },
+    error: null,
   };
 }

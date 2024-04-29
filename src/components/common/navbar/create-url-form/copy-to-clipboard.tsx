@@ -3,12 +3,18 @@
 import { Button } from '@/components/common/button';
 import { Input } from '@/components/common/input';
 import { Label } from '@/components/common/label';
-import { CLIENT_APP_URL } from '@/lib/constants';
-import { MutationResponse } from '@/types';
+import { PUBLIC_CLIENT_APP_URL } from '@/lib/constants';
 import { CheckIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import { useCallback, useEffect, useRef } from 'react';
 
-export default function CopyToClipboard({ success }: MutationResponse) {
+interface CopyToClipboardProps {
+  success: {
+    message: string;
+    data?: any;
+  } | null;
+}
+
+export default function CopyToClipboard({ success }: CopyToClipboardProps) {
   const clipboard = useRef<HTMLButtonElement | null>(null);
   const tooltip = useRef<HTMLDivElement | null>(null);
   const defaultIconRef = useRef<HTMLSpanElement | null>(null);
@@ -54,7 +60,7 @@ export default function CopyToClipboard({ success }: MutationResponse) {
 
   const copyToClipboard = () => {
     if (!success) return;
-    navigator.clipboard.writeText(`${CLIENT_APP_URL}/${success.data}`);
+    navigator.clipboard.writeText(`${PUBLIC_CLIENT_APP_URL}/${success.data}`);
   };
 
   return (
@@ -67,7 +73,7 @@ export default function CopyToClipboard({ success }: MutationResponse) {
           <Input
             id='copy-shortened_url'
             type='text'
-            value={`${success ? `${CLIENT_APP_URL}/${success.data}` : ''}`}
+            value={`${success ? `${PUBLIC_CLIENT_APP_URL}/${success.data}` : ''}`}
             placeholder='Shortened URL'
             readOnly
           />

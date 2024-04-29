@@ -1,20 +1,21 @@
 'use server';
 
-import { COOKIE_ACCESS_TOKEN, SERVER_BASE_API } from '@/lib/constants';
-import { handleError } from '@/lib/utils';
+import { SERVER_BASE_API } from '@/lib/constants';
+import { getAccessToken, handleError } from '@/lib/utils';
 import { URLStats } from '@/models/analytics';
 import { QueryResponse } from '@/types';
-import { cookies } from 'next/headers';
 
-export async function getStatsCount(
+export async function getURLAnalytics(
   shortURL: string,
 ): Promise<QueryResponse<URLStats>> {
   try {
-    const accessToken = cookies().get(COOKIE_ACCESS_TOKEN);
-    if (!accessToken) return handleError('Something went wrong');
+    const result = await getAccessToken();
+    if (!result) return handleError('User is not authorized');
+
+    const { accessToken } = result;
 
     const response = await fetch(
-      `${SERVER_BASE_API}/analytics/stats-count/${shortURL}`,
+      `${SERVER_BASE_API}/analytics/url-analytics/${shortURL}`,
       {
         method: 'GET',
         headers: {
@@ -39,6 +40,7 @@ export async function getStatsCount(
           returnVisitors: data.unique_visitors,
         },
       },
+      error: null,
     };
   } catch (error) {
     return handleError('Something went wrong');
