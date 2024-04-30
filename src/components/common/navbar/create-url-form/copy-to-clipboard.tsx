@@ -83,12 +83,12 @@ export default function CopyToClipboard({ success }: CopyToClipboardProps) {
             ref={clipboard}
             onClick={copyToClipboard}
           >
-            <span ref={defaultIconRef} className='text-white'>
+            <span ref={defaultIconRef} className='text-card-foreground'>
               <ClipboardIcon width={20} height={20} />
             </span>
             <span
               ref={successIconRef}
-              className='hidden items-center text-white'
+              className='hidden items-center text-card-foreground'
             >
               <CheckIcon width={20} height={20} />
             </span>
