@@ -19,6 +19,7 @@ import { createURL } from '@/services/urls/mutations/createURL';
 import { useEffect, useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import toast from 'react-hot-toast';
+import QRGenerator from './qr-generator';
 
 const INITIAL_STATE = { success: null, error: null };
 
@@ -83,7 +84,7 @@ export default function CreateURLForm() {
             />
           </div>
           <CopyToClipboard success={success} />
-
+          {success && <QRGenerator url={success.data} />}
           <DialogFooter>
             <div className='mt-4 flex space-x-2'>
               <DialogClose asChild>
