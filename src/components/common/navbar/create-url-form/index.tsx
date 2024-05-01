@@ -47,11 +47,11 @@ export default function CreateURLForm() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>New link</Button>
+        <Button>Shorten URL</Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>Create new URL</DialogTitle>
+          <DialogTitle>Shorten new URL</DialogTitle>
         </DialogHeader>
         <form action={dispatch} ref={formRef} className='mt-2'>
           <div className='mb-5 space-y-2.5'>
@@ -92,7 +92,7 @@ export default function CreateURLForm() {
                   Close
                 </Button>
               </DialogClose>
-              <SubmitButton>Create</SubmitButton>
+              <SubmitButton>Shorten</SubmitButton>
             </div>
           </DialogFooter>
         </form>
