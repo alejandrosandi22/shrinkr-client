@@ -31,7 +31,7 @@ interface HorizontalBarChartProps {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div>
+      <div className='rounded-lg bg-card/15 p-2.5 text-card-foreground shadow-sm'>
         <p className='label capitalize'>{`${label} : ${payload[0].value}`}</p>
       </div>
     );
