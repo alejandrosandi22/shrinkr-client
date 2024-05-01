@@ -1,3 +1,5 @@
+'use server';
+
 import { SERVER_BASE_API } from '@/lib/constants';
 import { handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
@@ -11,7 +13,7 @@ export async function supportEmail(
       name: formData.get('name'),
       email: formData.get('email'),
       reason: formData.get('reason'),
-      note: formData.get('note'),
+      message: formData.get('message'),
     };
 
     const response = await fetch(`${SERVER_BASE_API}/users/support`, {
