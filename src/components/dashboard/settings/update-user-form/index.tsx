@@ -50,12 +50,14 @@ export default function UpdateUserForm({
 
       {provider !== 'email' ? (
         <div className='mb-5 space-y-2.5'>
-          <Label htmlFor='password'>Add Password</Label>
+          <Label htmlFor='password'>Email</Label>
           <Input
-            type='password'
-            id='password'
-            name='password'
-            placeholder='*********'
+            type='email'
+            id='email'
+            name='email'
+            value={email}
+            placeholder='Enter your email'
+            disabled
           />
         </div>
       ) : (

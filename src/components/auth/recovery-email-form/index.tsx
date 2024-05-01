@@ -12,12 +12,29 @@ import { Label } from '@/components/common/label';
 import SubmitButton from '@/components/common/submit-button';
 import { sendRecoveryEmail } from '@/services/auth/mutations/sendRecoveryEmail';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
+import toast from 'react-hot-toast';
 
 const INITIAL_STATE = { success: null, error: null };
 
 export default function RecoveryEmailForm() {
   const [state, dispatch] = useFormState(sendRecoveryEmail, INITIAL_STATE);
+
+  const { error, success } = state;
+
+  useEffect(() => {
+    if (!success) return;
+    toast.success(success.message, {
+      duration: 10000,
+    });
+  }, [success]);
+
+  useEffect(() => {
+    if (!error) return;
+    if (error.type) return;
+    toast.error(error.message);
+  }, [error]);
 
   return (
     <Card>
@@ -46,7 +63,7 @@ export default function RecoveryEmailForm() {
                 </div>
                 <div>
                   {state.error && (
-                    <span className='my-2.5 text-sm text-destructive-foreground'>
+                    <span className='my-2.5 text-sm text-red-500'>
                       {state.error.message}
                     </span>
                   )}

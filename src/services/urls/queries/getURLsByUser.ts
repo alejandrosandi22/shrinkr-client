@@ -1,6 +1,6 @@
 'use server';
 
-import { SERVER_BASE_API } from '@/lib/constants';
+import { GET_URL_TAG, SERVER_BASE_API } from '@/lib/constants';
 import { getAccessToken, handleError } from '@/lib/utils';
 import { URLModel } from '@/models/urls';
 import { QueryResponse } from '@/types';
@@ -13,13 +13,13 @@ export async function getURLsByUser(): Promise<QueryResponse<URLModel[]>> {
     const { accessToken, decodedAccessToken } = result;
 
     const response = await fetch(
-      `${SERVER_BASE_API}/urls/user/${decodedAccessToken.sub}`,
+      `${SERVER_BASE_API}/urls/get-all/${decodedAccessToken.sub}`,
       {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken.value}`,
         },
-        next: { tags: ['user-urls'] },
+        next: { tags: [GET_URL_TAG] },
       },
     );
 

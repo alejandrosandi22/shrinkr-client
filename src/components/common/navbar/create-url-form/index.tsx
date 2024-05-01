@@ -15,15 +15,16 @@ import { Input } from '@/components/common/input';
 import { Label } from '@/components/common/label';
 import CopyToClipboard from '@/components/common/navbar/create-url-form/copy-to-clipboard';
 import SubmitButton from '@/components/common/submit-button';
-import { createUrl } from '@/services/urls/mutations/createUrl';
+import { createURL } from '@/services/urls/mutations/createURL';
 import { useEffect, useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import toast from 'react-hot-toast';
+import QRGenerator from './qr-generator';
 
 const INITIAL_STATE = { success: null, error: null };
 
 export default function CreateURLForm() {
-  const [formState, dispatch] = useFormState(createUrl, INITIAL_STATE);
+  const [formState, dispatch] = useFormState(createURL, INITIAL_STATE);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const [expirationDate, setExpirationDate] = useState<Date | undefined>();
@@ -46,11 +47,11 @@ export default function CreateURLForm() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>New link</Button>
+        <Button>Shorten URL</Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>Create new URL</DialogTitle>
+          <DialogTitle>Shorten new URL</DialogTitle>
         </DialogHeader>
         <form action={dispatch} ref={formRef} className='mt-2'>
           <div className='mb-5 space-y-2.5'>
@@ -72,11 +73,18 @@ export default function CreateURLForm() {
             />
           </div>
           <div className='mb-5 space-y-2.5'>
-            <Label>Expiration Date (Optional)</Label>
+            <Label htmlFor='expirationDate'>Expiration Date (Optional)</Label>
             <DatePicker date={expirationDate} setDate={setExpirationDate} />
+            <input
+              id='expirationDate'
+              name='expirationDate'
+              type='text'
+              value={`${expirationDate}`}
+              hidden
+            />
           </div>
           <CopyToClipboard success={success} />
-
+          {success && <QRGenerator url={success.data} />}
           <DialogFooter>
             <div className='mt-4 flex space-x-2'>
               <DialogClose asChild>
@@ -84,7 +92,7 @@ export default function CreateURLForm() {
                   Close
                 </Button>
               </DialogClose>
-              <SubmitButton>Create</SubmitButton>
+              <SubmitButton>Shorten</SubmitButton>
             </div>
           </DialogFooter>
         </form>

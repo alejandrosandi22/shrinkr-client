@@ -1,3 +1,5 @@
+'use server';
+
 import { SERVER_BASE_API } from '@/lib/constants';
 import { handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
@@ -24,8 +26,7 @@ export async function sendRecoveryEmail(
 
     return {
       success: {
-        message:
-          'Sent email successfully, check your email to reset your password',
+        message: 'Check your email to reset your password',
       },
       error: null,
     };

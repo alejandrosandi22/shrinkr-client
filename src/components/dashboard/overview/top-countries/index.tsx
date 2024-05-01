@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/common/table';
+import { CLIENT_APP_URL } from '@/lib/constants';
 import { getTopCountries } from '@/services/analytics/queries/getTopCountries';
 import Link from 'next/link';
 
@@ -51,10 +52,8 @@ export default async function TopCountries() {
               <TableCell>{url.visits}</TableCell>
               <TableCell>{url.uniqueVisitors}</TableCell>
               <TableCell className='max-w-56 truncate'>
-                <Link
-                  href={`${process.env.CLIENT_APP_URL}/${url.mostVisitedUrl}`}
-                >
-                  {`${process.env.CLIENT_APP_URL}/${url.mostVisitedUrl}`}
+                <Link href={`${CLIENT_APP_URL}/${url.mostVisitedUrl}`}>
+                  {`${CLIENT_APP_URL}/${url.mostVisitedUrl}`}
                 </Link>
               </TableCell>
             </TableRow>

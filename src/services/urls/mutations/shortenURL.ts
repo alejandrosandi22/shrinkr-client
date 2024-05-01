@@ -3,22 +3,23 @@
 import { SERVER_BASE_API } from '@/lib/constants';
 import { handleError } from '@/lib/utils';
 import { MutationResponse } from '@/types';
+import dayjs from 'dayjs';
 
-export async function supportEmail(
+export default async function shortenURL(
   prevState: MutationResponse,
   formData: FormData,
 ): Promise<MutationResponse> {
   try {
-    const rawFormData = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      reason: formData.get('reason'),
-      message: formData.get('message'),
+    const expirationDate = dayjs().add(30, 'day').format('YYYY-MM-DD HH:mm:ss');
+
+    const payload = {
+      original_url: formData.get('originalURL'),
+      expiration_date: expirationDate,
     };
 
-    const response = await fetch(`${SERVER_BASE_API}/users/support`, {
+    const response = await fetch(`${SERVER_BASE_API}/urls/shorten`, {
       method: 'POST',
-      body: JSON.stringify(rawFormData),
+      body: JSON.stringify(payload),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -29,11 +30,12 @@ export async function supportEmail(
 
     return {
       success: {
-        message: 'Email sent successfully',
+        message: 'URL has been shorten',
+        data: data.short_url,
       },
       error: null,
     };
   } catch (error) {
-    return handleError('Something went wrong');
+    return handleError('default');
   }
 }
