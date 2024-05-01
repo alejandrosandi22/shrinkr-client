@@ -1,6 +1,5 @@
-import HeroImageDark from '@/assets/hero-image-dark.png';
 import { CardDescription, CardTitle } from '@/components/common/card';
-import Image from 'next/image';
+import ValuePropositionImage from './image';
 
 export default function ValueProposition() {
   return (
@@ -31,14 +30,7 @@ export default function ValueProposition() {
             <div className='mx-auto max-w-6xl px-6 lg:px-8'>
               <div className='mt-16 flow-root sm:mt-24'>
                 <div className='-m-2 rounded-xl bg-gray-900/5 p-2 shadow-md ring-1 ring-inset ring-gray-900/10 dark:bg-gray-400/5 lg:-m-4 lg:rounded-2xl lg:p-4'>
-                  <Image
-                    src={HeroImageDark}
-                    width={1920}
-                    height={1080}
-                    alt='product preview'
-                    quality={100}
-                    className='overflow-hidden rounded-md bg-secondary shadow-2xl ring-1 ring-gray-900/10'
-                  />
+                  <ValuePropositionImage />
                 </div>
               </div>
             </div>
