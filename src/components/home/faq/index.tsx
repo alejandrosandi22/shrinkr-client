@@ -8,7 +8,7 @@ import { CardDescription, CardTitle } from '@/components/common/card';
 
 export default function FrequentlyAskedQuestions() {
   return (
-    <section className='bg-cover bg-center py-8 lg:py-32'>
+    <section className='flex gap-10 px-2 py-8 max-lg:flex-col lg:py-32'>
       <div className='relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8'>
         <div className='mb-14 text-center'>
           <CardTitle className='mb-3 text-center lg:text-3xl lg:leading-none'>
