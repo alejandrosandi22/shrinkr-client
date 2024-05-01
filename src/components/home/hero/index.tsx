@@ -1,9 +1,10 @@
 import { buttonVariants } from '@/components/common/button';
+import ShortenURLForm from '@/components/home/hero/shorten-url-form';
 import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <div className='relative isolate px-6 pt-20 lg:px-8'>
+    <section className='relative isolate pt-20 lg:px-8'>
       <div
         className='absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80'
         aria-hidden='true'
@@ -16,9 +17,8 @@ export default function Hero() {
           }}
         ></div>
       </div>
-      <div className='mx-auto max-w-2xl py-32 sm:py-48 lg:py-32 2xl:max-w-3xl 2xl:py-56'>
-        <div className='hidden sm:mb-8 sm:flex sm:justify-center'></div>
-        <div className='text-center'>
+      <div className='mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:px-8 lg:py-32 2xl:py-56'>
+        <div className='mx-auto w-full max-w-3xl'>
           <h1 className='text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl 2xl:text-7xl'>
             Shorten Your URLs for Impactful{' '}
             <strong className='font-bold text-primary'>Engagement</strong>
@@ -26,11 +26,14 @@ export default function Hero() {
           <p className='mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300'>
             Streamline Your Links with Lightning-Fast URL Shortening
           </p>
-          <div className='mt-10 flex items-center justify-center gap-x-6'>
+          <div className='mt-10 flex items-center gap-x-6'>
             <Link className={buttonVariants({ size: 'lg' })} href='/dashboard'>
               Get started
             </Link>
           </div>
+        </div>
+        <div className='w-full'>
+          <ShortenURLForm />
         </div>
       </div>
       <div
@@ -45,6 +48,6 @@ export default function Hero() {
           }}
         ></div>
       </div>
-    </div>
+    </section>
   );
 }
