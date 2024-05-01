@@ -12,7 +12,20 @@ import {
   Pie,
   PieChart as PieChartComponent,
   ResponsiveContainer,
+  Tooltip,
 } from 'recharts';
+
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className='rounded-lg bg-card/15 p-2.5 text-card-foreground shadow-sm'>
+        <p className='label capitalize'>{`${payload[0].value}`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
 
 const renderCustomizedLabel = ({ cx, x, y, name, resolvedTheme }: any) => {
   return (
@@ -86,6 +99,16 @@ export default function PieChart({ title, description, data }: PieChartProps) {
             }
             label={renderCustomizedLabel}
             labelLine={false}
+          />
+          <Tooltip
+            cursor={{
+              fill:
+                resolvedTheme === 'dark'
+                  ? 'hsl(217.2 32.6% 17.5%)'
+                  : 'hsl(210 40% 96.1%)',
+              opacity: 0.2,
+            }}
+            content={<CustomTooltip />}
           />
         </PieChartComponent>
       </ResponsiveContainer>
