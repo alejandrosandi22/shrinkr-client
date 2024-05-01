@@ -1,5 +1,6 @@
 'use client';
 
+import { PUBLIC_SERVER_BASE_API } from '@/lib/constants';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -14,7 +15,7 @@ export default function SocialAuthentication() {
     return (
       <div className='space-y-5'>
         <Link
-          href='http://localhost:5000/api/v1/auth/google'
+          href={`${PUBLIC_SERVER_BASE_API}/auth/google`}
           className='inline-flex h-10 w-full items-center whitespace-nowrap rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
         >
           <svg
@@ -58,8 +59,8 @@ export default function SocialAuthentication() {
           </svg>
           <span>Continue with Google</span>
         </Link>
-        <Link
-          href='http://localhost:5000/api/v1/auth/facebook'
+   {/*      <Link
+          href={`${PUBLIC_SERVER_BASE_API}/auth/facebook`}
           className='inline-flex h-10 w-full items-center whitespace-nowrap rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
         >
           <svg
@@ -82,14 +83,14 @@ export default function SocialAuthentication() {
           </svg>
 
           <span>Continue with Facebook</span>
-        </Link>
+        </Link> */}
       </div>
     );
 
   return (
     <div className='space-y-5'>
       <Link
-        href='http://localhost:5000/api/v1/auth/google'
+       href={`${PUBLIC_SERVER_BASE_API}/auth/google`}
         className='inline-flex h-10 w-full items-center whitespace-nowrap rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
       >
         <svg
@@ -133,8 +134,8 @@ export default function SocialAuthentication() {
         </svg>
         <span>Continue with Google</span>
       </Link>
-      <Link
-        href='http://localhost:5000/api/v1/auth/facebook'
+{/*       <Link
+        href={`${PUBLIC_SERVER_BASE_API}/auth/facebook`}
         className='inline-flex h-10 w-full items-center whitespace-nowrap rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
       >
         <svg
@@ -157,7 +158,7 @@ export default function SocialAuthentication() {
         </svg>
 
         <span>Continue with Facebook</span>
-      </Link>
+      </Link> */}
     </div>
   );
 }
