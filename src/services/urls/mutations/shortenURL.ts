@@ -17,9 +17,13 @@ export default async function shortenURL(
       expiration_date: expirationDate,
     };
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
     const response = await fetch(`${SERVER_BASE_API}/urls/shorten`, {
       method: 'POST',
       body: JSON.stringify(payload),
+      signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,6 +31,8 @@ export default async function shortenURL(
 
     const data = await response.json();
     if (!response.ok) return handleError(data.message);
+
+    clearTimeout(timeoutId);
 
     return {
       success: {
