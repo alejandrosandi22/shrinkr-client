@@ -30,11 +30,14 @@ export default function SendAnalytics({
   const router = useRouter();
 
   const handleSend = useCallback(async (payload: SendAnalyticsPayload) => {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+
     await fetch(
       `${PUBLIC_SERVER_BASE_API}/urls/short-url/${payload.shortURL}`,
       {
         method: 'POST',
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, ip: data.ip }),
         headers: {
           'Content-Type': 'application/json',
         },
