@@ -10,6 +10,9 @@ export async function getTopReferrers(): Promise<QueryResponse<TopReferrer[]>> {
 
     const { accessToken, decodedAccessToken } = result;
 
+    const controller = new AbortController();
+    const timeoutGetTopReferrers = setTimeout(() => controller.abort, 5000);
+
     const response = await fetch(
       `${SERVER_BASE_API}/analytics/top-referrers/${decodedAccessToken.sub}`,
       {
@@ -21,8 +24,9 @@ export async function getTopReferrers(): Promise<QueryResponse<TopReferrer[]>> {
     );
 
     const data = await response.json();
+    if (!response.ok) return handleError(data.message);
 
-    if (!response.ok) return handleError('Something went wrong');
+    clearTimeout(timeoutGetTopReferrers);
 
     return {
       success: {
@@ -32,6 +36,6 @@ export async function getTopReferrers(): Promise<QueryResponse<TopReferrer[]>> {
       error: null,
     };
   } catch (error) {
-    return handleError('Something went wrong');
+    return handleError('default');
   }
 }
