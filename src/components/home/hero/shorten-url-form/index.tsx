@@ -54,6 +54,7 @@ export default function ShortenURLForm() {
               id='originalURL'
               name='originalURL'
               placeholder='Enter the URL you want to shorten'
+              required
             />
           </div>
           <CopyToClipboard success={success} />
