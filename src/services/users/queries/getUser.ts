@@ -14,9 +14,13 @@ export async function getUser(
 
     if (!decodedAccessToken) return handleError('Something went wrong');
 
+    const controller = new AbortController();
+    const timeoutGetUser = setTimeout(() => controller.abort, 5000);
+
     const response = await fetch(`${SERVER_BASE_API}/users/email`, {
       method: 'POST',
       body: JSON.stringify({ email: decodedAccessToken.email, select }),
+      signal: controller.signal,
       headers: {
         Authorization: `Bearer ${accessToken.value}`,
         'Content-Type': 'application/json',
@@ -25,6 +29,8 @@ export async function getUser(
 
     const data = await response.json();
     if (!response.ok) return handleError(data.message);
+
+    clearTimeout(timeoutGetUser);
 
     return {
       success: {

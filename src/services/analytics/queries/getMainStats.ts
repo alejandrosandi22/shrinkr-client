@@ -10,6 +10,9 @@ export async function getMainStats(): Promise<QueryResponse<MainStats>> {
 
     const { accessToken, decodedAccessToken } = result;
 
+    const controller = new AbortController();
+    const timeoutGeMainStats = setTimeout(() => controller.abort, 5000);
+
     const response = await fetch(
       `${SERVER_BASE_API}/analytics/main-stats/${decodedAccessToken.sub}`,
       {
@@ -22,6 +25,8 @@ export async function getMainStats(): Promise<QueryResponse<MainStats>> {
 
     const data = await response.json();
     if (!response.ok) return handleError('Something went wrong');
+
+    clearTimeout(timeoutGeMainStats);
 
     return {
       success: {
