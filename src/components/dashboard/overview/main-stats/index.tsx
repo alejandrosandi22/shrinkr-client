@@ -1,45 +1,67 @@
-import { getMainStats } from '@/services/analytics/queries/getMainStats';
+import { MainStatsValues } from '@/models/analytics';
 import Card from './card';
 
-export default async function MainStats() {
-  const response = await getMainStats();
+interface MainStatsProps {
+  uniqueVisitors?: MainStatsValues;
+  visits?: MainStatsValues;
+  topCountry?: MainStatsValues;
+  topReferrer?: MainStatsValues;
+}
 
-  const { error, success } = response;
-
-  if (!success?.data || error)
-    return (
-      <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
-        <Card title='Unique Visits' value='0' difference={0} />
-        <Card title='Visits' value='0' difference={0} />
-        <Card title='Top Country' value='N/D' difference={0} />
-        <Card title='Top Referrer' value='N/D' difference={0} />
-      </section>
-    );
-
-  const { uniqueVisitors, visits, topCountry, topReferrer } = success.data;
+export default async function MainStats({
+  visits,
+  uniqueVisitors,
+  topCountry,
+  topReferrer,
+}: MainStatsProps) {
+  console.log({
+    visits,
+    uniqueVisitors,
+    topCountry,
+    topReferrer,
+  });
 
   return (
     <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
-      <Card
-        title={uniqueVisitors.title}
-        value={uniqueVisitors.value}
-        difference={uniqueVisitors.difference}
-      />
-      <Card
-        title={visits.title}
-        value={visits.value}
-        difference={visits.difference}
-      />
-      <Card
-        title={topCountry.title}
-        value={topCountry.value}
-        difference={topCountry.difference}
-      />
-      <Card
-        title={topReferrer.title}
-        value={topReferrer.value}
-        difference={topReferrer.difference}
-      />
+      {uniqueVisitors ? (
+        <Card
+          title={uniqueVisitors.title}
+          value={uniqueVisitors.value}
+          difference={uniqueVisitors.difference}
+        />
+      ) : (
+        <Card title='Unique Visits' value='0' difference={0} />
+      )}
+
+      {visits ? (
+        <Card
+          title={visits.title}
+          value={visits.value}
+          difference={visits.difference}
+        />
+      ) : (
+        <Card title='Visits' value='0' difference={0} />
+      )}
+
+      {topCountry ? (
+        <Card
+          title={topCountry.title}
+          value={topCountry.value}
+          difference={topCountry.difference}
+        />
+      ) : (
+        <Card title='Top Country' value='N/D' difference={0} />
+      )}
+
+      {topReferrer ? (
+        <Card
+          title={topReferrer.title}
+          value={topReferrer.value}
+          difference={topReferrer.difference}
+        />
+      ) : (
+        <Card title='Top Referrer' value='N/D' difference={0} />
+      )}
     </section>
   );
 }

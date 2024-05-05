@@ -8,12 +8,17 @@ export async function getURL(
   url: string,
 ): Promise<QueryResponse<{ originalURL: string; shortURL: string }>> {
   try {
+    const controller = new AbortController();
+    const timeoutGetURL = setTimeout(() => controller.abort, 5000);
+
     const response = await fetch(`${SERVER_BASE_API}/urls/get-url/${url}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
+
+    clearTimeout(timeoutGetURL);
 
     const data = await response.json();
     if (!response.ok) return handleError(data.message);

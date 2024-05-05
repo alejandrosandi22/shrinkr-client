@@ -14,6 +14,9 @@ export async function getURLAnalytics(
 
     const { accessToken } = result;
 
+    const controller = new AbortController();
+    const timeoutGetURLAnalytics = setTimeout(() => controller.abort, 5000);
+
     const response = await fetch(
       `${SERVER_BASE_API}/analytics/url-analytics/${shortURL}`,
       {
@@ -24,8 +27,9 @@ export async function getURLAnalytics(
       },
     );
 
-    const data = await response.json();
+    clearTimeout(timeoutGetURLAnalytics);
 
+    const data = await response.json();
     if (!response.ok) return handleError(data.message);
 
     return {

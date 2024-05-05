@@ -23,22 +23,26 @@ export default async function LinksList() {
 
   if (error) {
     return (
-      <div className='w-full p-6 text-center'>
+      <div className='flex h-full w-full items-center justify-center p-6 text-center'>
         <Label>Error when getting the urls</Label>
       </div>
     );
   }
 
   if (!success) {
-    return <span>Loadng..</span>;
+    return (
+      <div className='flex h-full w-full items-center justify-center'>
+        <div className='ldrs-ring-container' />
+      </div>
+    );
   }
 
   if (!success.data.length) {
     return (
-      <div className='flex w-full items-center gap-2.5 py-6'>
-        <h6 className='mb-px text-3xl font-bold'>
-          Start shortening your first link:
-        </h6>
+      <div className='flex h-[50%] w-full flex-col items-center justify-center gap-5 py-6'>
+        <Label className='max-w-sm text-center text-base'>
+          You have not shortened any URLs, start shortening your first link
+        </Label>
         <CreateURLForm />
       </div>
     );

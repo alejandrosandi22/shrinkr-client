@@ -1,36 +1,38 @@
+'use server';
+
 import { SERVER_BASE_API } from '@/lib/constants';
 import { getAccessToken, handleError } from '@/lib/utils';
-import { TopReferrer } from '@/models/analytics';
+import { OverviewModel } from '@/models/analytics';
 import { QueryResponse } from '@/types';
 
-export async function getTopReferrers(): Promise<QueryResponse<TopReferrer[]>> {
+export async function getOverview(): Promise<QueryResponse<OverviewModel>> {
   try {
     const result = await getAccessToken();
     if (!result) return handleError('User is not authorized');
-
     const { accessToken, decodedAccessToken } = result;
 
     const controller = new AbortController();
-    const timeoutGetTopReferrers = setTimeout(() => controller.abort, 5000);
+    const timeoutGetOverview = setTimeout(() => controller.abort, 5000);
 
     const response = await fetch(
-      `${SERVER_BASE_API}/analytics/top-referrers/${decodedAccessToken.sub}`,
+      `${SERVER_BASE_API}/analytics/overview/${decodedAccessToken.sub}`,
       {
         method: 'GET',
+        signal: controller.signal,
         headers: {
           Authorization: `Bearer ${accessToken.value}`,
         },
       },
     );
 
+    clearTimeout(timeoutGetOverview);
+
     const data = await response.json();
     if (!response.ok) return handleError(data.message);
 
-    clearTimeout(timeoutGetTopReferrers);
-
     return {
       success: {
-        message: 'Data received successfully',
+        message: 'Data recevied successfuly',
         data,
       },
       error: null,
