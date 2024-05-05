@@ -72,6 +72,8 @@ export default function HorizontalBarChart({
           <BarChart
             data={data}
             layout='vertical'
+            width={400}
+            height={400}
             margin={{ top: 0, right: 0, left: 25, bottom: 0 }}
           >
             <defs>
