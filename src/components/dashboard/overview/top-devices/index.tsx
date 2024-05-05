@@ -1,10 +1,10 @@
 import PieChart from '@/components/common/charts/pie-chart';
-import { getTopDevices } from '@/services/analytics/queries/getTopDevices';
+import { ChartDataValues } from '@/types';
 
-export default async function TopDevices() {
-  const response = await getTopDevices();
+interface TopDevicesProps {
+  data?: ChartDataValues[];
+}
 
-  const { success } = response;
-
-  return <PieChart data={success?.data} title='Top devices' />;
+export default async function TopDevices({ data }: TopDevicesProps) {
+  return <PieChart data={data} title='Top devices' />;
 }

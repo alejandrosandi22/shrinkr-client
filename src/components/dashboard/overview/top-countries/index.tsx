@@ -8,15 +8,17 @@ import {
   TableRow,
 } from '@/components/common/table';
 import { CLIENT_APP_URL } from '@/lib/constants';
-import { getTopCountries } from '@/services/analytics/queries/getTopCountries';
+import { TopCountry } from '@/models/analytics';
+import { ErrorState } from '@/types';
 import Link from 'next/link';
 
-export default async function TopCountries() {
-  const response = await getTopCountries();
+interface TopCountriesProps {
+  data?: TopCountry[];
+  error: null | ErrorState;
+}
 
-  const { error, success } = response;
-
-  if (!success || error) {
+export default async function TopCountries({ data, error }: TopCountriesProps) {
+  if (!data || error) {
     return (
       <Card>
         <Table>
@@ -46,14 +48,14 @@ export default async function TopCountries() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {success.data.map((url, index) => (
+          {data.map((url, index) => (
             <TableRow key={`${url.country}-${index}`}>
               <TableCell>{url.country}</TableCell>
               <TableCell>{url.visits}</TableCell>
               <TableCell>{url.uniqueVisitors}</TableCell>
               <TableCell className='max-w-56 truncate'>
-                <Link href={`${CLIENT_APP_URL}/${url.mostVisitedUrl}`}>
-                  {`${CLIENT_APP_URL}/${url.mostVisitedUrl}`}
+                <Link href={`${CLIENT_APP_URL}/${url.mostVisitedURL}`}>
+                  {`${CLIENT_APP_URL}/${url.mostVisitedURL}`}
                 </Link>
               </TableCell>
             </TableRow>

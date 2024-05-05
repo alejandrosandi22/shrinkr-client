@@ -18,9 +18,9 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default async function URLPage({ params }: { params: { url: string } }) {
-  const response = await getURLAnalytics(params.url);
+  const { error, success } = await getURLAnalytics(params.url);
 
-  if (!response.success)
+  if (!success || error)
     return (
       <div className='flex h-full items-center justify-center'>
         <Card className='w-[420px] border-none bg-background shadow-none'>
@@ -34,7 +34,7 @@ export default async function URLPage({ params }: { params: { url: string } }) {
       </div>
     );
 
-  const { data } = response.success;
+  const { data } = success;
 
   return (
     <div>
