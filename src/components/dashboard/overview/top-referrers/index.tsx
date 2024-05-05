@@ -1,10 +1,10 @@
 import BarChart from '@/components/common/charts/bar-chart';
-import { getTopReferrers } from '@/services/analytics/queries/getTopReferrers';
+import { ChartDataValues } from '@/types';
 
-export default async function TopReferrer() {
-  const response = await getTopReferrers();
+interface TopReferrerProps {
+  data?: ChartDataValues[];
+}
 
-  const { success } = response;
-
-  return <BarChart data={success?.data} title='Top referrers' />;
+export default async function TopReferrer({ data }: TopReferrerProps) {
+  return <BarChart data={data} title='Top referrers' />;
 }

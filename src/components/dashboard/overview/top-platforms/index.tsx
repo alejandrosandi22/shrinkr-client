@@ -1,10 +1,10 @@
 import BarChart from '@/components/common/charts/bar-chart';
-import { getTopPlatforms } from '@/services/analytics/queries/getTopPlatforms';
+import { ChartDataValues } from '@/types';
 
-export default async function TopPlatforms() {
-  const response = await getTopPlatforms();
+interface TopPlatformsProps {
+  data?: ChartDataValues[];
+}
 
-  const { success } = response;
-
-  return <BarChart data={success?.data} title='Top platforms' />;
+export default async function TopPlatforms({ data }: TopPlatformsProps) {
+  return <BarChart data={data} title='Top platforms' />;
 }

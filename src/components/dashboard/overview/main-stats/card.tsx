@@ -34,7 +34,7 @@ export default function GeneralStatisticsCard({
         <p
           className={cn('text-xs text-muted-foreground', differenceTextColor())}
         >
-          {difference.toFixed(2)}%
+          {difference && difference.toFixed(2)}%
         </p>
       </CardContent>
     </Card>

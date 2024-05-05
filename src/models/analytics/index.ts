@@ -1,25 +1,10 @@
 import { ChartDataValues } from '@/types';
 
-export interface TopDevice {
-  name: string;
-  value: string;
-}
-
-export interface TopReferrer {
-  name: string;
-  value: string;
-}
-
-export interface TopPlatform {
-  name: string;
-  value: string;
-}
-
 export interface TopCountry {
   country: string;
   visits: number;
   uniqueVisitors: number;
-  mostVisitedUrl: string;
+  mostVisitedURL: string;
 }
 
 export interface MainStatsValues {
@@ -28,7 +13,7 @@ export interface MainStatsValues {
   difference: number;
 }
 
-export interface MainStats {
+export interface IMainStats {
   uniqueVisitors: MainStatsValues;
   visits: MainStatsValues;
   topCountry: MainStatsValues;
@@ -46,4 +31,12 @@ export interface URLStats {
   visits: number;
   uniqueVisitors: number;
   returnVisitors: number;
+}
+
+export interface OverviewModel {
+  mainStats: IMainStats;
+  topReferrers: ChartDataValues[];
+  topPlatforms: ChartDataValues[];
+  topDevices: ChartDataValues[];
+  topCountries: TopCountry[];
 }
