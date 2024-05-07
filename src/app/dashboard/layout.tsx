@@ -9,12 +9,12 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className='flex h-screen w-full flex-col gap-1 px-1 pt-[80px] md:flex-row md:overflow-hidden md:px-6'>
-      <div className='hidden w-full flex-none md:block md:w-60 2xl:w-80'>
+    <div className='flex h-screen w-full flex-col gap-1 px-1 pt-[80px] lg:flex-row lg:overflow-hidden lg:px-6'>
+      <div className='hidden w-full flex-none lg:block lg:w-60 2xl:w-80'>
         <SideNav />
       </div>
       <div className='h-full w-full overflow-y-auto p-4'>{children}</div>
-      <div className='block w-full flex-none md:hidden md:w-60 2xl:w-80'>
+      <div className='block h-[72px] w-full flex-none lg:hidden lg:w-60 2xl:w-80'>
         <SideNav />
       </div>
     </div>
