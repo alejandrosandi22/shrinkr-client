@@ -14,13 +14,6 @@ export default async function MainStats({
   topCountry,
   topReferrer,
 }: MainStatsProps) {
-  console.log({
-    visits,
-    uniqueVisitors,
-    topCountry,
-    topReferrer,
-  });
-
   return (
     <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
       {uniqueVisitors ? (

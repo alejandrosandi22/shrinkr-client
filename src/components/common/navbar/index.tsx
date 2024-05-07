@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Options from './options';
 
 export default async function Navbar() {
-  const { error, success } = await getUser();
+  const { success } = await getUser();
 
   return (
     <header className='absolute z-40 w-full px-5 py-5 text-sm md:px-10'>
@@ -22,7 +22,7 @@ export default async function Navbar() {
             <span className='hidden sm:block'>Shrinkr</span>
           </Link>
         </div>
-        <Options user={success?.data} error={error} />
+        <Options user={success?.data} />
       </nav>
     </header>
   );

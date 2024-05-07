@@ -1,3 +1,4 @@
+import { buttonVariants } from '@/components/common/button';
 import { Card } from '@/components/common/card';
 import { Label } from '@/components/common/label';
 import CreateURLForm from '@/components/common/navbar/create-url-form';
@@ -9,12 +10,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/common/table';
+import UpdateURLForm from '@/components/dashboard/urls/update-url-form';
 import UrlOptionsDropdown from '@/components/dashboard/urls/url-options-dropdown';
 import { CLIENT_APP_URL } from '@/lib/constants';
 import { getURLsByUser } from '@/services/urls/queries/getURLsByUser';
+import { ChartBarIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
+import DeleteURL from './delete-url';
 
 dayjs.extend(relativeTime);
 
@@ -58,19 +62,24 @@ export default async function LinksList() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Original url</TableHead>
+              <TableHead className='max-[1024px]:hidden'>
+                Original url
+              </TableHead>
               <TableHead>Short url</TableHead>
-              <TableHead>Visits</TableHead>
-              <TableHead>Expiration Date</TableHead>
-              <TableHead>Created</TableHead>
-              <TableHead>Active</TableHead>
-              <TableHead>Options</TableHead>
+              <TableHead className='max-[1024px]:hidden'>Visits</TableHead>
+              <TableHead className='max-[1024px]:hidden'>
+                Expiration Date
+              </TableHead>
+              <TableHead className='max-[1024px]:hidden'>Created</TableHead>
+              <TableHead className='max-[1024px]:hidden'>Active</TableHead>
+              <TableHead className='max-[1024px]:hidden'>Options</TableHead>
+              <TableHead className='text-center lg:hidden'>Options</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {success.data.map((url) => (
               <TableRow key={url.id}>
-                <TableCell className='max-w-56 truncate'>
+                <TableCell className='max-w-56 truncate max-[1024px]:hidden'>
                   {url.originalUrl}
                 </TableCell>
                 <TableCell>
@@ -81,22 +90,45 @@ export default async function LinksList() {
                     {`${CLIENT_APP_URL}/${url.shortUrl}`}
                   </Link>
                 </TableCell>
-                <TableCell>{url.requestCount}</TableCell>
-                <TableCell>
+                <TableCell className='max-[1024px]:hidden'>
+                  {url.requestCount}
+                </TableCell>
+                <TableCell className='max-[1024px]:hidden'>
                   {!url.expirationDate
                     ? 'No expiration date'
                     : dayjs(url.expirationDate).format('MMMM D, YYYY h:mm A')}
                 </TableCell>
-                <TableCell>{dayjs(url.createdAt).fromNow()}</TableCell>
-                <TableCell>
+                <TableCell className='max-[1024px]:hidden'>
+                  {dayjs(url.createdAt).fromNow()}
+                </TableCell>
+                <TableCell className='max-[1024px]:hidden'>
                   <span
                     className={`me-2 rounded px-2.5 py-0.5 text-xs font-medium ${url.active ? 'dark:bg-green-900 dark:text-green-300' : 'dark:bg-red-900 dark:text-red-300'}`}
                   >
                     {url.active ? 'Yes' : 'No'}
                   </span>
                 </TableCell>
-                <TableCell className='flex justify-center'>
+                <TableCell className='hidden justify-center lg:flex'>
                   <UrlOptionsDropdown url={url} />
+                </TableCell>
+                <TableCell className='flex items-center gap-5 lg:hidden'>
+                  <Link
+                    href={`/dashboard/urls/${url.shortUrl}`}
+                    className={buttonVariants({
+                      variant: 'secondary',
+                      className:
+                        'flex w-full items-center gap-3 rounded-md text-sm',
+                    })}
+                  >
+                    <ChartBarIcon height={24} width={24} />
+                    Stats
+                  </Link>
+                  <div className={buttonVariants({ variant: 'secondary' })}>
+                    <UpdateURLForm url={url} />
+                  </div>
+                  <div className={buttonVariants({ variant: 'secondary' })}>
+                    <DeleteURL id={url.id} />
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
