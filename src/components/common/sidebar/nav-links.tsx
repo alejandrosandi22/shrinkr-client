@@ -19,7 +19,7 @@ const links = [
 
 export default function NavLinks() {
   return (
-    <ul className='flex h-full w-full flex-row justify-between md:flex-col md:space-y-2'>
+    <ul className='flex h-full w-full flex-row justify-between lg:flex-col lg:space-y-2'>
       {links.map((link) => {
         const LinkIcon = link.icon;
         return (
@@ -29,7 +29,7 @@ export default function NavLinks() {
               className='flex w-full justify-start gap-3 rounded-xl px-3 py-2 hover:bg-accent hover:text-accent-foreground'
             >
               <LinkIcon width={24} height={24} />
-              <span className='hidden md:block'>{link.name}</span>
+              <span className='hidden lg:block'>{link.name}</span>
             </Link>
           </li>
         );
