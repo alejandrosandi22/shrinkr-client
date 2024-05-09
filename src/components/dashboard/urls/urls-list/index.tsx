@@ -103,7 +103,7 @@ export default async function LinksList() {
                 </TableCell>
                 <TableCell className='max-[1024px]:hidden'>
                   <span
-                    className={`me-2 rounded px-2.5 py-0.5 text-xs font-medium ${url.active ? 'dark:bg-green-900 dark:text-green-300' : 'dark:bg-red-900 dark:text-red-300'}`}
+                    className={`me-2 rounded px-2.5 py-0.5 text-xs font-medium ${url.active ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'}`}
                   >
                     {url.active ? 'Yes' : 'No'}
                   </span>

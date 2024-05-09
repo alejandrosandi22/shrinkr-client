@@ -50,7 +50,7 @@ export default async function URLInformation({ url }: { url: string }) {
             <TableCell>{data.requestCount}</TableCell>
             <TableCell>
               <span
-                className={`me-2 rounded px-2.5 py-0.5 text-xs font-medium ${data.active ? 'dark:bg-green-900 dark:text-green-300' : 'dark:bg-red-900 dark:text-red-300'}`}
+                className={`me-2 rounded px-2.5 py-0.5 text-xs font-medium ${data.active ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'}`}
               >
                 {data.active ? 'Yes' : 'No'}
               </span>
