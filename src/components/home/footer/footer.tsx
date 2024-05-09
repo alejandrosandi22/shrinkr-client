@@ -1,5 +1,7 @@
 import favicon from '@/assets/favicon.svg';
 import { buttonVariants } from '@/components/common/button';
+import { Label } from '@/components/common/label';
+import ThemeSwitch from '@/components/dashboard/settings/theme-switch';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -18,7 +20,7 @@ export default function Footer() {
             />
             <span>Shrinkr</span>
           </Link>
-          <ul className='items-cente justify-center gap-14 text-center text-lg transition-all duration-500 sm:flex lg:gap-10 xl:gap-14'>
+          <ul className='items-cente justify-center gap-14 text-center text-lg transition-all duration-500 md:flex lg:gap-10 xl:gap-14'>
             <li>
               <Link href='/' className={buttonVariants({ variant: 'ghost' })}>
                 Home
@@ -49,8 +51,12 @@ export default function Footer() {
                 Privacy Policy
               </Link>
             </li>
+            <li className='flex items-center justify-center gap-3'>
+              <Label>Dark mode</Label>
+              <ThemeSwitch />
+            </li>
           </ul>
-          <div className='flex  space-x-4 sm:justify-center  '>
+          <div className='flex  space-x-4 sm:justify-center'>
             <Link
               href='https://github.com/alejandrosandi22/shrinkr-client'
               target='_blank'
