@@ -30,30 +30,40 @@ export default function SendAnalytics({
   const router = useRouter();
 
   const handleSend = useCallback(async (payload: SendAnalyticsPayload) => {
-    const response = await fetch('https://api.ipify.org?format=json');
-    const data = await response.json();
+    try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      const data = await response.json();
 
-    await fetch(
-      `${PUBLIC_SERVER_BASE_API}/urls/short-url/${payload.shortURL}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({ ...payload, ip: data.ip }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-      .then(async (res) => {
-        const resData = await res.json();
-        if (!res.ok) return setError(true);
-        router.push(resData.original_url);
-      })
-      .catch((error) => {
-        if (error.message === 'Failed to fetch') {
-          toast.error('Disable adBlock');
-        }
+      if (!response.ok) {
+        toast.error('Something went wrong! Try again later');
         setError(true);
-      });
+      }
+
+      await fetch(
+        `${PUBLIC_SERVER_BASE_API}/urls/short-url/${payload.shortURL}`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ ...payload, ip: data.ip }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+        .then(async (res) => {
+          const resData = await res.json();
+          if (!res.ok) return setError(true);
+          router.push(resData.original_url);
+        })
+        .catch((error) => {
+          if (error.message === 'Failed to fetch') {
+            toast.error('Disable adBlock');
+          }
+          setError(true);
+        });
+    } catch (error) {
+      toast.error('Something went wrong! Try again later');
+      setError(true);
+    }
   }, []);
 
   useEffect(() => {
