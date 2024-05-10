@@ -3,7 +3,7 @@
 import { JWT_SECRET, SERVER_BASE_API } from '@/lib/constants';
 import { handleError } from '@/lib/utils';
 import { QueryResponse } from '@/types';
-import jwt, { type JwtPayload } from 'jsonwebtoken';
+import * as jose from 'jose';
 import { permanentRedirect } from 'next/navigation';
 
 export async function verifyAccount(
@@ -13,7 +13,7 @@ export async function verifyAccount(
 
   let decodedToken = undefined;
   try {
-    decodedToken = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    decodedToken = await jose.jwtVerify(token, JWT_SECRET);
   } catch (error) {
     console.error(error);
   }
@@ -21,7 +21,7 @@ export async function verifyAccount(
 
   try {
     const response = await fetch(
-      `${SERVER_BASE_API}/auth/verify-account/${decodedToken.sub}`,
+      `${SERVER_BASE_API}/auth/verify-account/${decodedToken.payload.sub}`,
       {
         method: 'POST',
       },

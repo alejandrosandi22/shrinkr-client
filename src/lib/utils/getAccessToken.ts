@@ -1,7 +1,7 @@
 'use server';
 
 import { COOKIE_ACCESS_TOKEN, JWT_SECRET } from '@/lib/constants';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import * as jose from 'jose';
 import { cookies } from 'next/headers';
 
 export default async function getAccessToken() {
@@ -9,15 +9,15 @@ export default async function getAccessToken() {
     const accessToken = cookies().get(COOKIE_ACCESS_TOKEN);
     if (!accessToken) return null;
 
-    const decodedAccessToken = jwt.verify(
+    const decodedAccessToken = await jose.jwtVerify(
       accessToken.value,
       JWT_SECRET,
-    ) as JwtPayload;
+    );
     if (!decodedAccessToken) return null;
 
     return {
       accessToken,
-      decodedAccessToken,
+      decodedAccessToken: decodedAccessToken.payload,
     };
   } catch (error) {
     return null;

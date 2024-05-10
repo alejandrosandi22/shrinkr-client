@@ -1,7 +1,7 @@
 'use server';
 
 import { JWT_SECRET } from '@/lib/constants';
-import jwt, { type JwtPayload } from 'jsonwebtoken';
+import * as jose from 'jose';
 import { permanentRedirect } from 'next/navigation';
 
 export async function validateChangePassword(token: string | undefined) {
@@ -9,7 +9,7 @@ export async function validateChangePassword(token: string | undefined) {
 
   let decodedToken = undefined;
   try {
-    decodedToken = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    decodedToken = jose.jwtVerify(token, JWT_SECRET);
   } catch (error) {
     console.error(error);
   }

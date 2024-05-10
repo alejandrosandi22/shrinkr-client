@@ -4,7 +4,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       ENV: 'test' | 'dev' | 'prod';
-      JWT_SECRET: string;
+      JWT_SECRET: KeyLike;
       CLIENT_APP_URL: string;
       NEXT_PUBLIC_CLIENT_APP_URL: string;
       SERVER_BASE_API: string;
