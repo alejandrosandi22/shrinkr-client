@@ -99,6 +99,7 @@ export default function PieChart({ title, description, data }: PieChartProps) {
             }
             label={renderCustomizedLabel}
             labelLine={false}
+            className='capitalize'
           />
           <Tooltip
             cursor={{

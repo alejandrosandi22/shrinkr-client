@@ -1,4 +1,5 @@
 import MainStats from '@/components/dashboard/overview/main-stats';
+import OverviewSkeleton from '@/components/dashboard/overview/skeleton';
 import TopCountries from '@/components/dashboard/overview/top-countries';
 import TopDevices from '@/components/dashboard/overview/top-devices';
 import TopPlatforms from '@/components/dashboard/overview/top-platforms';
@@ -7,6 +8,8 @@ import { getOverview } from '@/services/analytics/queries/getOverview';
 
 export default async function Dashboard() {
   const { error, success } = await getOverview();
+
+  if (!error && !success) return <OverviewSkeleton />;
 
   return (
     <main>
