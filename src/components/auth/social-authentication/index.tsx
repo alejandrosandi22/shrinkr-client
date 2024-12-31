@@ -59,7 +59,7 @@ export default function SocialAuthentication() {
           </svg>
           <span>Continue with Google</span>
         </Link>
-        {/*      <Link
+        <Link
           href={`${PUBLIC_SERVER_BASE_API}/auth/facebook`}
           className='inline-flex h-10 w-full items-center whitespace-nowrap rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
         >
@@ -83,7 +83,7 @@ export default function SocialAuthentication() {
           </svg>
 
           <span>Continue with Facebook</span>
-        </Link> */}
+        </Link>
       </div>
     );
 
@@ -134,7 +134,7 @@ export default function SocialAuthentication() {
         </svg>
         <span>Continue with Google</span>
       </Link>
-      {/*       <Link
+      <Link
         href={`${PUBLIC_SERVER_BASE_API}/auth/facebook`}
         className='inline-flex h-10 w-full items-center whitespace-nowrap rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
       >
@@ -158,7 +158,7 @@ export default function SocialAuthentication() {
         </svg>
 
         <span>Continue with Facebook</span>
-      </Link> */}
+      </Link>
     </div>
   );
 }

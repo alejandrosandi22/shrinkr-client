@@ -1,11 +1,9 @@
 import { SERVER_BASE_API } from '@/lib/constants';
 import { getAccessToken, handleError } from '@/lib/utils';
-import { User, UserOptionsSelect } from '@/models/users';
+import { User } from '@/models/users';
 import { QueryResponse } from '@/types';
 
-export async function getUser(
-  select?: UserOptionsSelect,
-): Promise<QueryResponse<User>> {
+export async function getUser(): Promise<QueryResponse<User>> {
   try {
     const result = await getAccessToken();
     if (!result) return handleError('User is not authorized');
@@ -19,7 +17,7 @@ export async function getUser(
 
     const response = await fetch(`${SERVER_BASE_API}/users/email`, {
       method: 'POST',
-      body: JSON.stringify({ email: decodedAccessToken.email, select }),
+      body: JSON.stringify({ email: decodedAccessToken.email as any }),
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${accessToken.value}`,

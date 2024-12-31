@@ -2,12 +2,10 @@ import { Label } from '@/components/common/label';
 import DeleteAccount from '@/components/dashboard/settings/delete-account';
 import ThemeSwitch from '@/components/dashboard/settings/theme-switch';
 import UpdateUserForm from '@/components/dashboard/settings/update-user-form';
-import { UserOptionsSelect } from '@/models/users';
 import { getUser } from '@/services/users/queries/getUser';
 
 export default async function Settings() {
-  const keys: UserOptionsSelect = ['name', 'email', 'provider'];
-  const { error, success } = await getUser(keys);
+  const { error, success } = await getUser();
 
   if (error || !success) return null;
   const { data } = success;

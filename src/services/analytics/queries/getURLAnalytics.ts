@@ -37,8 +37,8 @@ export async function getURLAnalytics(
         message: 'Data received successfully',
         data: {
           ...data,
-          visitsByCountry: data.visits_by_country,
-          daysWithMoreVisits: data.more_active_days,
+          visitsByCountry: data.visitsByCountry,
+          daysWithMoreVisits: data.daysWithMoreVisits,
           last7DaysPerformance: data.last_7_days_performance,
           uniqueVisitors: data.unique_visitors,
           returnVisitors: data.unique_visitors,
