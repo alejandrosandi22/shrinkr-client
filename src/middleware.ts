@@ -20,14 +20,16 @@ export async function middleware(request: NextRequest) {
     const response = await fetch(`${SERVER_BASE_API}/auth/authorization`, {
       method: 'GET',
       headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${access_token}`,
       },
     });
 
+    const user = await response.json();
+
     if (!response.ok)
       return NextResponse.redirect(`${CLIENT_APP_URL}/auth/login`);
-
-    const user = await response.json();
 
     if (!user) {
       return NextResponse.redirect(new URL('/auth/login', request.url));
