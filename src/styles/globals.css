@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './loaders/ring.css';
+@import url('./loaders/ring.css');
 
 @layer base {
   * {
